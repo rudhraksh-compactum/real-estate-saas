@@ -32,6 +32,11 @@
 
 ### Plans
 
+Plans:
+- [x] 1.1-PLAN.md — Docker Compose with Postgres/PostGIS and app service
+- [x] 1.2-PLAN.md — Payload CMS integration with monorepo structure
+- [x] 1.3-PLAN.md — Next.js frontend with tenant-aware routing
+
 **1.1: Docker Compose Setup**
 - Create `docker-compose.yml` with `app`, `postgres` services
 - Use `postgis/postgis:15-3.4` for Postgres image
@@ -330,4 +335,4 @@ Phase 7 (Admin) — depends on Phase 6
 
 ---
 
-*Last updated: 2026-05-31 after roadmap creation*
+*Last updated: 2026-05-31 after Phase 1 planning*
