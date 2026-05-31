@@ -8,13 +8,13 @@ See: `.planning/PROJECT.md` (updated 2026-05-31)
 
 **Core value:** Property owners and agents can publish their listings and capture leads — without needing a developer.
 
-**Current focus:** Initialized, ready to begin Phase 1
+**Current focus:** Phase 1 context gathered — ready for planning
 
 ## Phase Status
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 1 — Infrastructure Setup | ○ Pending | 0/3 | 0% |
+| 1 — Infrastructure Setup | ● Context gathered | 0/3 | 0% |
 | 2 — Shared Data Layer | ○ Pending | 0/4 | 0% |
 | 3 — Tenant Routing | ○ Pending | 0/2 | 0% |
 | 4 — Airbnb Vertical | ○ Pending | 0/3 | 0% |
@@ -40,4 +40,5 @@ See: `.planning/PROJECT.md` (updated 2026-05-31)
 - `2d5cffe` — chore: add project config
 - `0e27b0d` — docs: add domain research
 - `a0c1e2b` — docs: define v1 requirements
+- `82fa52c` — docs(phase-1): capture infrastructure setup context
 - `TBD` — docs: create roadmap
