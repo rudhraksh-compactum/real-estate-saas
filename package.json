@@ -1,0 +1,15 @@
+{
+  "name": "real-estate-saas",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "payload": "pnpm --filter payload dev",
+    "clean": "rm -rf node_modules .next packages/*/node_modules payload/node_modules frontend/node_modules"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
