@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 2 context gathered — planning next
+**Current focus:** Phase 2 planned — ready to execute
 
 ## Project Model
 
@@ -29,7 +29,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 — Infrastructure Setup | ✅ Complete | 3/3 | 100% |
-| 2 — Data Layer | ○ Pending | 0/4 | 0% |
+| 2 — Data Layer | 📋 Ready to execute | 4/4 | 0% |
 | 3 — Activities & Inquiry | ○ Pending | 0/3 | 0% |
 | 4 — Search & Maps | ○ Pending | 0/4 | 0% |
 | 5 — Storefront SSR | ○ Pending | 0/4 | 0% |
@@ -67,7 +67,8 @@ Updated ROADMAP.md and PROJECT.md accordingly.
 
 ## Recent Commits
 
+- `b87ca93` — fix(phase-2): address checker issues
+- `e06807c` — docs(phase-2): create phase 2 data layer plans
+- `7b0643d` — docs(phase-2): capture demo client context
 - `c25b0e8` — docs: revise roadmap for MVP-first approach
 - `f80a085` — feat(phase-1): complete infrastructure setup
-- `9232d44` — docs: initialize project
-- `2d5cffe` — chore: add project config
