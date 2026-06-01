@@ -2,86 +2,83 @@
 
 ## What This Is
 
-A multi-tenant SaaS platform — "Shopify for Real Estate." Three verticals run on one shared core: Airbnb/short-let owners, real estate agents, and property builders. Each tenant gets their own branded site on a subdomain (later: custom domains), populated only with their properties.
+A website agency model — we build complete websites with CMS backends for property businesses (Airbnb hosts, real estate agents, property builders).
 
-**This build**: Shared core + Airbnb vertical fully implemented. Agent and builder verticals scaffolded as extension points (data model ready, UI not built).
+**MVP:** One complete site as proof of concept (demo client: e.g., Airbnb host or real estate agent).
+
+**Version 2:** Shopify-style multi-tenant SaaS where clients self-signup and manage their own sites.
 
 ## Core Value
 
-Property owners and agents can publish their listings and capture leads — without needing a developer.
+Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
+
+## MVP Scope
+
+### What we deliver (MVP)
+- Complete frontend website (property listings, detail pages, inquiry form)
+- CMS backend for managing properties
+- Search, maps, and POI integration
+- SEO-optimized pages
+- For one demo client first
+
+### What's NOT in MVP
+- Multi-tenant SaaS infrastructure
+- Self-service account signup
+- Subdomain or custom domain routing per account
+- Template system for cloning sites
+
+## Tech Stack
+
+- **Frontend:** Next.js 14+ (App Router) + TypeScript + Tailwind CSS
+- **Backend/CMS/Admin:** Payload CMS 3.x (TypeScript)
+- **Database:** PostgreSQL 15+ with PostGIS extension
+- **Maps:** MapLibre GL (frontend) + Google Places API (POI data)
+- **Auth:** Payload built-in authentication
+- **Deployment:** Docker Compose
 
 ## Requirements
 
-### Validated
+### Active (MVP)
 
-(None yet — ship to validate)
+- [ ] Properties collection with all fields (title, description, address, geolocation, BHK, type, furnishing, etc.)
+- [ ] Leads collection with inquiry capture
+- [ ] Media collection for images
+- [ ] Airbnb vertical fields (nightly pricing, amenities, house rules, activities)
+- [ ] Property filters and search
+- [ ] Map view with markers
+- [ ] POI integration with Google Places
+- [ ] SSR pages for SEO
+- [ ] Inquiry forms
+- [ ] Payload admin forms polished for non-technical users
 
-### Active
+### Out of Scope (MVP) / Version 2
 
-- [ ] Multi-tenant architecture with subdomain-based tenant resolution
-- [ ] Shared data core: Tenant, User, Property, Lead, Media, POI cache
-- [ ] Tenant-scoped access control via Payload ACLs
-- [ ] Airbnb vertical: nightly/seasonal pricing, amenities, availability calendar, house rules, Activities (experiences)
-- [ ] Agent vertical scaffold: buy/rent mode, listing status, filter/search extension points
-- [ ] Builder vertical scaffold: Project → floorplans extension point
-- [ ] Storefront: SSR pages for SEO (home, map view, property detail with POI map, activities, inquiry forms)
-- [ ] Property filters: BHK type, property type, rent vs sale mode, furnishing, budget range, locality, amenities, pet policy, tenant preference, facing/floor/bathrooms, availability timing
-- [ ] Google Places integration with POI caching
-- [ ] Tenant-facing Payload admin forms polished for non-technical users
-
-### Out of Scope
-
-- Payments / Stripe billing — inquiry capture only for v1
-- Live booking availability locking — inquiry capture only for v1
-- Custom domains — subdomain-only for v1
-- Theme marketplace / visual page builder
-- Real-time features, queues, caching layers beyond POI cache
-
-## Context
-
-**Target users**: Property owners (Airbnb hosts), real estate agents, and property builders who need a branded web presence without building from scratch.
-
-**Core differentiator**: Clean multi-tenant architecture that doesn't become a bloated monolith. Each vertical extends cleanly without polluting the shared core.
-
-## Constraints
-
-- **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS — no substitution
-- **Backend/CMS/Admin**: Payload CMS (TypeScript) — no substitution
-- **Database**: PostgreSQL + PostGIS — geospatial queries required
-- **Maps**: MapLibre GL (frontend rendering) + Google Places API (POI data)
-- **Auth**: Payload built-in authentication
-- **Deployment**: Docker Compose (app + Postgres/PostGIS)
-- **SEO**: Server-rendered storefront pages — non-negotiable (these sites rank on Google)
+- Multi-tenant infrastructure — Version 2
+- Self-service signup — Version 2
+- Subdomain or custom domain routing — Version 2
+- Template system for cloning sites — Version 2
+- Payments / Stripe billing — inquiry capture only
+- Live booking availability — inquiry capture only
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| Payload CMS as backend+CMS+admin | Single TypeScript codebase, built-in auth/ACL, reduces vendor count | — Pending |
-| PostGIS for geolocation | Native geospatial queries, works with Payload | — Pending |
-| Inquiry-first (not live booking) | Payments/availability engine is v2; lead capture is v1 | — Pending |
-| Subdomain tenant routing | Simplest to implement; custom domains layered on later | — Pending |
-| BHK types: Studio, 1 RK, 1BHK, 2BHK, 3BHK, 4BHK, 5BHK+ | Full spectrum for Indian + international markets | — Pending |
-| Property types: Apartment, Villa, Penthouse, Independent House, Plot/Land, Studio | All in scope per user confirmation | — Pending |
-| Rent/Sale dual mode | Agent vertical supports both; user toggles filter on site | — Pending |
-| POI categories: Restaurants/Cafes, Bars/Nightlife, Parks/Recreation, Beaches/Scenic | User-specified priority list | — Pending |
+| Decision | Rationale |
+|----------|-----------|
+| Payload CMS as backend+CMS+admin | Single TypeScript codebase, built-in auth, reduces vendor count |
+| PostGIS for geolocation | Native geospatial queries, works with Payload |
+| Inquiry-first (not live booking) | Payments/availability engine is v2; lead capture is MVP |
+| Airbnb vertical fully implemented | Demo client uses this vertical |
+| Local media storage for MVP | S3 added when needed |
+| Website agency model | We build & deploy for each client; v2 is self-service SaaS |
 
-## Evolution
+## Version 2 (Future)
 
-This document evolves at phase transitions and milestone boundaries.
-
-**After each phase transition** (via `/gsd-transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
-
-**After each milestone** (via `/gsd:complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
+| Feature | Description |
+|---------|-------------|
+| Multi-tenant | Account isolation, shared database |
+| Self-service | Clients signup themselves |
+| Domain routing | Automatic domain → account lookup |
+| Template system | Clone site for new client |
 
 ---
-*Last updated: 2026-05-31 after initialization*
+*Last updated: 2026-06-01 — Revised for MVP-first approach*
