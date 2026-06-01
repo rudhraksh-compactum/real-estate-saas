@@ -12,7 +12,7 @@ COPY packages ./packages
 COPY payload ./payload
 COPY frontend ./frontend
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Stage 2: Build
 FROM node:18-alpine AS builder

@@ -66,6 +66,8 @@
 
 **Goal:** Core Payload CMS collections (Properties, Leads, Media) with full field definitions for the demo client.
 
+**Status:** Complete (4/4 plans)
+
 **Success Criteria:**
 1. Properties collection with all base fields (title, description, address, geolocation, BHK, type, furnishing, etc.)
 2. Leads collection captures inquiry data
@@ -74,42 +76,10 @@
 
 ### Plans
 
-**2.1: Properties Collection**
-- Replace PropertiesStub.ts with full collection
-- Fields in tabs: Basic Info, Location, Property Details, Pricing, Amenities & Rules, Media
-- Airbnb fields: nightlyPrice, seasonalPricing (array), amenities (select hasMany), houseRules
-- Geolocation as PostGIS point field
-- Access control: public read, admin create/update/delete
-- Test: Create property, verify all fields save
-
-**2.2: Leads Collection**
-- Create `Leads` collection with: name, email, phone, message, propertyReference
-- Link to property via relationship
-- Status workflow: new → contacted → qualified → converted → lost
-- Access: public create, admin read/update/delete
-- Test: Submit lead via API, verify in admin
-
-**2.3: Media Collection**
-- Create `Media` collection using Payload built-in upload
-- Local filesystem: public/media
-- Image sizes: thumbnail, small, card, large, hero
-- MIME types: jpeg, png, webp, gif (no SVG)
-- Required alt text field
-- Test: Upload image, verify URL returned
-
-**2.4: Accounts Collection & Wiring**
-- Create `Accounts` collection for Not Just A Stay (name, logo, tagline, branding)
-- Create collections index.ts exporting all collections
-- Update payload.config.ts to import from index
-- Run schema migration
-- Test: All collections visible in Payload admin
-
-### Plan Status
-
-- [ ] 2.1 — Properties Collection
-- [ ] 2.2 — Leads Collection
-- [ ] 2.3 — Media Collection
-- [ ] 2.4 — Accounts Collection & Wiring
+- [x] 2.1 — Properties Collection
+- [x] 2.2 — Leads Collection
+- [x] 2.3 — Media Collection
+- [x] 2.4 — Accounts Collection & Wiring
 
 ---
 
@@ -122,6 +92,12 @@
 2. Activities can be linked to Properties
 3. Inquiry form submits lead to CMS
 4. Inquiry visible in admin
+
+### Plan Status
+
+- [x] 3.1 — Activities Collection
+- [x] 3.2 — Inquiry Form
+- [x] 3.3 — Activity Inquiry
 
 ### Plans
 
@@ -275,4 +251,4 @@ These items are **out of scope** for MVP and will be addressed in Version 2:
 
 ---
 
-*Last updated: 2026-06-01 — Phase 2 plans created*
+*Last updated: 2026-06-01 — Phase 3 plans created*

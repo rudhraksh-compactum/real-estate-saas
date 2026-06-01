@@ -69,6 +69,14 @@ export const Leads: CollectionConfig = {
       },
     },
     {
+      name: 'activityReference',
+      type: 'relationship',
+      relationTo: 'activities',
+      admin: {
+        description: 'Activity this lead inquired about',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       defaultValue: 'new',

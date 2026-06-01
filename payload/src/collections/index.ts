@@ -9,12 +9,14 @@
  * - Leads: Inquiry lead capture
  * - Media: Image uploads with multiple sizes
  * - Accounts: Not Just A Stay branding info
+ * - Activities: Airbnb experiences and activities
  */
 
 import { PropertiesStub } from './PropertiesStub';
 import { Leads } from './Leads';
 import { Media } from './Media';
 import { Accounts } from './Accounts';
+import { Activities } from './Activities';
 
 /**
  * All collections exported from this module.
@@ -25,6 +27,7 @@ export const collections = [
   Leads,
   Media,
   Accounts,
+  Activities,
 ];
 
 // Re-export individual collections for granular imports
@@ -32,3 +35,4 @@ export { PropertiesStub } from './PropertiesStub';
 export { Leads } from './Leads';
 export { Media } from './Media';
 export { Accounts } from './Accounts';
+export { Activities } from './Activities';
