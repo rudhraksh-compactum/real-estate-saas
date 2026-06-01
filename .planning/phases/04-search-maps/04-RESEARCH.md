@@ -610,22 +610,22 @@ export function buildPropertyQuery(filters: FilterState): Record<string, unknown
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Payload point field `near` operator availability**
-   - What we know: Payload 3.x supports `point` field type which maps to PostGIS geometry
-   - What's unclear: Whether Payload exposes a `near` operator for point queries, or requires custom SQL hook
-   - Recommendation: Test with a minimal Payload endpoint, verify `where: { geolocation: { near: {...} } }` compiles and generates correct SQL
+1. **Payload point field `near` operator availability** ✅ RESOLVED
+   - Decision: Use Payload custom endpoint approach instead of native operator
+   - Implementation: Create `/api/properties/nearby` endpoint that uses raw PostGIS via Payload's `sql` helper
+   - Rationale: This gives full control over ST_DWithin queries and avoids Payload version-specific behavior
 
-2. **Google Places API key management**
-   - What we know: `@googlemaps/google-maps-services-js` requires server-side API key
-   - What's unclear: Whether the project has a Google Cloud project set up, or needs to be created
-   - Recommendation: Document API key setup in Phase 4 execution plan
+2. **Google Places API key management** ✅ RESOLVED
+   - Decision: Document setup in execution plan, use environment variable GOOGLE_PLACES_API_KEY
+   - Implementation: Key stored in `.env.local`, read server-side only in poi/client.ts
+   - Rationale: Standard Next.js pattern, key never exposed to client
 
-3. **Tile server for MapLibre style**
-   - What we know: `demotiles.maplibre.org` works but has limited coverage
-   - What's unclear: Whether to use free tiles (limited styling) or self-hosted tiles (more work)
-   - Recommendation: Start with demotiles, upgrade to self-hosted if styling customization needed
+3. **Tile server for MapLibre style** ✅ RESOLVED
+   - Decision: Start with demotiles.maplibre.org, document upgrade path
+   - Implementation: Use demotiles for MVP, document self-hosted tiles as future optimization
+   - Rationale: Demotiles sufficient for demo client, self-hosting adds operational complexity
 
 ---
 

@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 3 complete — Activities & Inquiry implemented
+**Current focus:** Phase 4 planned — Ready to execute
 
 ## Project Model
 
@@ -38,7 +38,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | 3.1 — Activities Collection | ✅ Complete | - | - |
 | 3.2 — Property Inquiry Form | ✅ Complete | - | - |
 | 3.3 — Activity Inquiry | ✅ Complete | - | - |
-| 4 — Search & Maps | ○ Ready to plan | 0/4 | 0% |
+| 4 — Search & Maps | 📋 Planned | 4/4 | 0% |
 | 5 — Storefront SSR | ○ Pending | 0/4 | 0% |
 | 6 — Admin Polish | ○ Pending | 0/2 | 0% |
 
