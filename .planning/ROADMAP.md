@@ -41,7 +41,7 @@
 
 ---
 
-## Phase 1: Infrastructure Setup ✅
+## Phase 1: Infrastructure Setup
 
 **Goal:** Docker Compose with Payload + Next.js + PostgreSQL, all services connected and booting.
 
@@ -75,37 +75,41 @@
 ### Plans
 
 **2.1: Properties Collection**
-- Create `Properties` collection with all fields:
-  - Base: title, description, address, geolocation (lat/lng)
-  - Core: bhkType, propertyType, furnishingStatus
-  - Details: facing, floor (current, total), bathrooms
-  - Policy: petPolicy, tenantPreference, availabilityTiming
-  - Meta: status (draft|published|archived), locality
-  - Pricing: nightlyPrice (Airbnb), rentPrice, salePrice (agent)
-- Add spatial index on geolocation field
-- Configure media relationship for gallery
+- Replace PropertiesStub.ts with full collection
+- Fields in tabs: Basic Info, Location, Property Details, Pricing, Amenities & Rules, Media
+- Airbnb fields: nightlyPrice, seasonalPricing (array), amenities (select hasMany), houseRules
+- Geolocation as PostGIS point field
+- Access control: public read, admin create/update/delete
 - Test: Create property, verify all fields save
 
 **2.2: Leads Collection**
 - Create `Leads` collection with: name, email, phone, message, propertyReference
-- Link to property
-- Status workflow: new → contacted → qualified → lost
-- Configure access control (public create, admin read/update)
+- Link to property via relationship
+- Status workflow: new → contacted → qualified → converted → lost
+- Access: public create, admin read/update/delete
 - Test: Submit lead via API, verify in admin
 
 **2.3: Media Collection**
 - Create `Media` collection using Payload built-in upload
-- Configure image upload with size/format validation
+- Local filesystem: public/media
+- Image sizes: thumbnail, small, card, large, hero
+- MIME types: jpeg, png, webp, gif (no SVG)
+- Required alt text field
 - Test: Upload image, verify URL returned
 
-**2.4: Airbnb Extension Fields**
-- Add to Properties collection:
-  - nightlyPricing: number
-  - seasonalPricing: array of {startDate, endDate, price}
-  - amenities: array of select (WiFi, AC, Pool, Kitchen, Parking, Washer, TV, Gym, etc.)
-  - houseRules: textarea
-  - availabilityCalendar: JSON field
-- Test: Create Airbnb property with all fields
+**2.4: Accounts Collection & Wiring**
+- Create `Accounts` collection for Not Just A Stay (name, logo, tagline, branding)
+- Create collections index.ts exporting all collections
+- Update payload.config.ts to import from index
+- Run schema migration
+- Test: All collections visible in Payload admin
+
+### Plan Status
+
+- [ ] 2.1 — Properties Collection
+- [ ] 2.2 — Leads Collection
+- [ ] 2.3 — Media Collection
+- [ ] 2.4 — Accounts Collection & Wiring
 
 ---
 
@@ -271,4 +275,4 @@ These items are **out of scope** for MVP and will be addressed in Version 2:
 
 ---
 
-*Last updated: 2026-06-01 — Revised for MVP-first approach*
+*Last updated: 2026-06-01 — Phase 2 plans created*
