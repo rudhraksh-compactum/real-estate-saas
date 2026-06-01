@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 3 planned — Ready to execute
+**Current focus:** Phase 3 complete — Activities & Inquiry implemented
 
 ## Project Model
 
@@ -34,8 +34,11 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | 2.2 — Leads Collection | ✅ Complete | - | - |
 | 2.3 — Media Collection | ✅ Complete | - | - |
 | 2.4 — Accounts Collection | ✅ Complete | - | - |
-| 3 — Activities & Inquiry | 📋 Planned | 3/3 | 0% |
-| 4 — Search & Maps | ○ Pending | 0/4 | 0% |
+| 3 — Activities & Inquiry | ✅ Complete | 3/3 | 100% (3/3) |
+| 3.1 — Activities Collection | ✅ Complete | - | - |
+| 3.2 — Property Inquiry Form | ✅ Complete | - | - |
+| 3.3 — Activity Inquiry | ✅ Complete | - | - |
+| 4 — Search & Maps | ○ Ready to plan | 0/4 | 0% |
 | 5 — Storefront SSR | ○ Pending | 0/4 | 0% |
 | 6 — Admin Polish | ○ Pending | 0/2 | 0% |
 
@@ -72,11 +75,7 @@ Updated ROADMAP.md and PROJECT.md accordingly.
 ## Recent Commits
 
 - `2dfe21a` — docs(phase-2): Add 2.4 execution summary for Accounts collection
-- `03-RESEARCH.md` — Phase 3 research (Activities & Inquiry)
-- `3.1-PLAN.md` — Activities Collection plan
-- `3.2-PLAN.md` — Property Inquiry Form plan
-- `3.3-PLAN.md` — Activity Inquiry plan
-- `03-VALIDATION.md` — Phase 3 validation strategy
+- `f96ce5f` — feat(phase-3): Complete Activities & Inquiry phase
 - `a47b018` — feat(phase-2): Create Accounts collection, collections index, wire payload config
 - `a5f9dda` — docs(phase-2): Add 2.3 execution summary for Media collection
 - `6182e03` — docs(phase-2): Add 2.1 execution summary
