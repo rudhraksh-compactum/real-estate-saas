@@ -8,14 +8,21 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 1 complete — planning Phase 2
+**Current focus:** Phase 2 context gathered — planning next
 
 ## Project Model
 
 **Website Agency Model (MVP)**
 - We build complete websites + CMS for property businesses
 - Not a self-service SaaS (that's Version 2)
-- Demo client: Airbnb host or real estate agent
+
+## Demo Client
+
+**Not Just A Stay** (Airbnb vertical)
+- Website: https://www.notjustastay.com
+- Vertical: Airbnb/Short-let properties
+- Scope: Import all property details and photographs from existing site
+- Account: Single account for MVP
 
 ## Phase Status
 
@@ -36,10 +43,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 ## Notes
 
-- MVP: One complete website as proof of concept
+- MVP: Build website for Not Just A Stay as proof of concept
 - Shopify-style SaaS is Version 2
 - 6 phases total for MVP
-- Agent and Builder verticals scaffolded as extension points
+- Vertical: Airbnb (Agent & Builder are future clients)
 
 ## Roadmap Correction (2026-06-01)
 
@@ -49,8 +56,18 @@ Phase 1 context discussion revealed fundamental misalignment:
 
 Updated ROADMAP.md and PROJECT.md accordingly.
 
+## Demo Client Info
+
+| Field | Value |
+|-------|-------|
+| Client | Not Just A Stay |
+| URL | https://www.notjustastay.com |
+| Vertical | Airbnb/Short-let |
+| Data to import | Property details, photographs |
+
 ## Recent Commits
 
+- `c25b0e8` — docs: revise roadmap for MVP-first approach
 - `f80a085` — feat(phase-1): complete infrastructure setup
 - `9232d44` — docs: initialize project
 - `2d5cffe` — chore: add project config
