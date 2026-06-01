@@ -1,6 +1,6 @@
 # Project State
 
-**Last updated:** 2026-05-31
+**Last updated:** 2026-06-01
 
 ## Project Reference
 
@@ -8,13 +8,13 @@ See: `.planning/PROJECT.md` (updated 2026-05-31)
 
 **Core value:** Property owners and agents can publish their listings and capture leads — without needing a developer.
 
-**Current focus:** Phase 1 context gathered — ready for planning
+**Current focus:** Phase 1 complete — ready for Phase 2
 
 ## Phase Status
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 1 — Infrastructure Setup | ● Context gathered | 0/3 | 0% |
+| 1 — Infrastructure Setup | ✅ Complete | 3/3 | 100% |
 | 2 — Shared Data Layer | ○ Pending | 0/4 | 0% |
 | 3 — Tenant Routing | ○ Pending | 0/2 | 0% |
 | 4 — Airbnb Vertical | ○ Pending | 0/3 | 0% |
@@ -33,6 +33,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-31)
 - Project initialized with Horizontal Layers structure
 - 7 phases total, ~22 plans
 - Agent and Builder verticals scaffolded as extension points (not implemented in v1)
+- Phase 1 infrastructure complete: Docker Compose, Payload CMS config, Next.js frontend
 
 ## Recent Commits
 

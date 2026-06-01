@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default colors - can be overridden per-tenant via CSS variables */
+    --color-primary: 59 130 246;
+    --color-primary-50: 239 246 255;
+    --color-primary-500: 59 130 246;
+    --color-primary-900: 30 64 175;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
