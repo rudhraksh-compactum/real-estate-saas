@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 2 planned — ready to execute
+**Current focus:** Phase 2.2 complete — Leads collection created
 
 ## Project Model
 
@@ -29,7 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 — Infrastructure Setup | ✅ Complete | 3/3 | 100% |
-| 2 — Data Layer | 📋 Ready to execute | 4/4 | 0% |
+| 2 — Data Layer | 📋 In progress | 4/4 | 33% (1/3) |
+| 2.1 — Properties Collection | ✅ Complete | - | - |
+| 2.2 — Leads Collection | ✅ Complete | - | - |
+| 2.3 — Activities Collection | ○ Pending | - | - |
 | 3 — Activities & Inquiry | ○ Pending | 0/3 | 0% |
 | 4 — Search & Maps | ○ Pending | 0/4 | 0% |
 | 5 — Storefront SSR | ○ Pending | 0/4 | 0% |
@@ -67,6 +70,7 @@ Updated ROADMAP.md and PROJECT.md accordingly.
 
 ## Recent Commits
 
+- `e75e8ac` — feat(phase-2): add Leads collection for inquiry capture
 - `b87ca93` — fix(phase-2): address checker issues
 - `e06807c` — docs(phase-2): create phase 2 data layer plans
 - `7b0643d` — docs(phase-2): capture demo client context
