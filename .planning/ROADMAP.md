@@ -87,37 +87,19 @@
 
 **Goal:** Activities collection for Airbnb experiences + inquiry submission flow.
 
+**Status:** Complete (3/3 plans)
+
 **Success Criteria:**
 1. Activities collection with CRUD
 2. Activities can be linked to Properties
 3. Inquiry form submits lead to CMS
 4. Inquiry visible in admin
 
-### Plan Status
+### Plans
 
 - [x] 3.1 — Activities Collection
 - [x] 3.2 — Inquiry Form
 - [x] 3.3 — Activity Inquiry
-
-### Plans
-
-**3.1: Activities Collection**
-- Create `Activities` collection with: title, description, price, media (images), availability, linkedProperties (relationship)
-- Configure in Payload admin
-- Test: Create activity, link to property
-
-**3.2: Inquiry Form**
-- Create inquiry form component for properties
-- Fields: name, email, phone, message, property reference
-- Submit to Leads collection
-- Show success/error states
-- Test: Submit form, verify lead created in admin
-
-**3.3: Activity Inquiry**
-- Create inquiry form for activities
-- Same fields as property inquiry
-- Link to activity
-- Test: Submit activity inquiry, verify lead created
 
 ---
 
@@ -125,39 +107,48 @@
 
 **Goal:** Property filters, MapLibre integration, POI caching.
 
+**Status:** Planned (4/4 plans)
+
 **Success Criteria:**
 1. All filter types implemented (BHK, type, budget, locality, amenities, etc.)
 2. Property map view shows properties as markers
 3. POI overlay on property detail
 4. Google Places API integration with 7-day cache TTL
 
+### Plan Status
+
+- [ ] 4.1 — Property Filters
+- [ ] 4.2 — Property Map View
+- [ ] 4.3 — POI Integration
+- [ ] 4.4 — Geolocation Search
+
 ### Plans
 
 **4.1: Property Filters**
-- Create filter components: BHK selector, property type, budget range slider, locality autocomplete
-- Add: furnishing, amenities multi-select, pet policy, tenant preference, facing, floor, bathrooms
-- Build filter state management (URL params)
-- Connect filters to Payload queries
+- Create Zustand filter store with URL sync
+- Create filter utilities and Payload query builder
+- Build filter UI: BHK selector, property type, budget slider, locality, furnishing, amenities, pet policy, tenant preference
 - Test: Apply filters, verify correct results
 
 **4.2: Property Map View**
-- Install MapLibre GL
-- Create `MapView` component with SSR skeleton
-- Add property markers as GeoJSON layer
-- Implement marker clustering at low zoom
-- Add popup on marker click
+- Install maplibre-gl, react-map-gl
+- Create SSR-safe MapViewSSR wrapper with dynamic import
+- Create PropertyMap component with GeoJSON markers and clustering
+- Add MapSkeleton loading placeholder
 - Test: Map loads with property markers
 
 **4.3: POI Integration**
-- Create `lib/poi.ts` with Google Places API client
-- Implement nearby search: restaurants, bars, parks, beaches
-- Add POI cache collection with 7-day TTL
-- Create POI overlay component
+- Create POICache collection with 7-day TTL hooks
+- Implement Google Places API client
+- Create POI cache utilities (read/write/invalidate)
+- Build POI overlay component with category filtering
 - Test: Fetch POIs, verify cache hit on second load
 
 **4.4: Geolocation Search**
-- Add PostGIS radius filter to property queries
-- Create radius selector UI
+- Create PostGIS radius query hook (ST_DWithin)
+- Add radius and center fields to filter store
+- Create RadiusSelector and CenterPointSelector UI
+- Wire radius filter to API route
 - Test: "Properties within 5km" returns correct results
 
 ---
@@ -165,6 +156,8 @@
 ## Phase 5: Storefront SSR
 
 **Goal:** SEO-optimized public pages for all routes.
+
+**Status:** Pending (0/4 plans)
 
 **Success Criteria:**
 1. Home page renders with featured properties
@@ -212,6 +205,8 @@
 
 **Goal:** Payload admin forms optimized for non-technical users.
 
+**Status:** Pending (0/2 plans)
+
 **Success Criteria:**
 1. Property edit form with clean field groupings
 2. Field labels are user-friendly
@@ -251,4 +246,4 @@ These items are **out of scope** for MVP and will be addressed in Version 2:
 
 ---
 
-*Last updated: 2026-06-01 — Phase 3 complete*
+*Last updated: 2026-06-02 — Phase 4 planned*
