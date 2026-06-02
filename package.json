@@ -2,22 +2,15 @@
   "name": "real-estate-saas",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "pnpm --filter frontend dev",
-    "build": "pnpm --filter frontend build",
-    "payload": "pnpm --filter payload dev",
-    "clean": "rm -rf node_modules .next packages/*/node_modules payload/node_modules frontend/node_modules"
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "pnpm": ">=8.0.0"
-  },
-  "devDependencies": {
-    "tsx": "^4.22.3"
-  },
-  "dependencies": {
-    "@payloadcms/db-postgres": "^3.85.0",
-    "@payloadcms/next": "^3.85.0",
-    "payload": "^3.85.0"
+    "node": ">=18.0.0"
   }
 }
