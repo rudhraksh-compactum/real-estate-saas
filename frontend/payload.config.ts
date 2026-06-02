@@ -21,7 +21,4 @@ export default buildConfig({
   }),
   collections: collections,
   secret: process.env.PAYLOAD_SECRET,
-  types: {
-    autofill: true,
-  },
 });
