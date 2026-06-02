@@ -3,16 +3,8 @@ import { getFeaturedProperties } from '@/lib/data/properties';
 import { HeroSearch } from '@/components/HeroSearch';
 import { FeaturedProperties } from '@/components/FeaturedProperties';
 
-interface TenantPageProps {
-  params: Promise<{
-    tenant: string;
-  }>;
-}
-
 // Dynamic metadata for SEO
-export async function generateMetadata({
-  params,
-}: TenantPageProps): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://notjustastay.com';
   return {
     title: 'Not Just A Stay | Find Your Perfect Short-Let Property',
@@ -28,11 +20,7 @@ export async function generateMetadata({
 }
 
 // Home page with hero search and featured properties
-export default async function TenantHomePage({
-  params,
-}: TenantPageProps) {
-  const { tenant } = await params;
-
+export default async function HomePage() {
   // Fetch featured properties for display
   const properties = await getFeaturedProperties();
 
