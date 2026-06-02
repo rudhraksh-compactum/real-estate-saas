@@ -6,7 +6,6 @@ import InquiryForm from '@/components/InquiryForm';
 
 interface PropertyPageProps {
   params: Promise<{
-    tenant: string;
     id: string;
   }>;
 }
@@ -73,17 +72,31 @@ export default async function PropertyPage({
                 {property.title}
               </h1>
               <p className="text-gray-600">
-                {property.address.street}, {property.address.city}, {property.address.state}
+                {property.address?.locality || property.address?.city}, {property.address?.state}
               </p>
             </div>
 
             {/* Quick Info */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex flex-wrap gap-4 text-sm">
-                <div>
-                  <span className="text-gray-500">Type:</span>{' '}
-                  <span className="font-medium">{property.bhkType.replace('_', ' ').toUpperCase()}</span>
-                </div>
+                {property.bedrooms && (
+                  <div>
+                    <span className="text-gray-500">Bedrooms:</span>{' '}
+                    <span className="font-medium">{property.bedrooms}</span>
+                  </div>
+                )}
+                {property.bathrooms && (
+                  <div>
+                    <span className="text-gray-500">Bathrooms:</span>{' '}
+                    <span className="font-medium">{property.bathrooms}</span>
+                  </div>
+                )}
+                {property.maxGuests && (
+                  <div>
+                    <span className="text-gray-500">Max Guests:</span>{' '}
+                    <span className="font-medium">{property.maxGuests}</span>
+                  </div>
+                )}
                 <div>
                   <span className="text-gray-500">Price:</span>{' '}
                   <span className="font-medium text-xl text-emerald-600">
@@ -111,7 +124,7 @@ export default async function PropertyPage({
                       key={amenity}
                       className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm capitalize"
                     >
-                      {amenity}
+                      {amenity.replace(/-/g, ' ')}
                     </span>
                   ))}
                 </div>
@@ -122,11 +135,11 @@ export default async function PropertyPage({
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-semibold mb-4">Location</h2>
               <p className="text-gray-700">
-                {property.address.street}
+                {property.address?.street && `${property.address.street}, `}
+                {property.address?.locality && `${property.address.locality}, `}
+                {property.address?.city && property.address.city}, {property.address?.state} {property.address?.zipCode}
                 <br />
-                {property.address.city}, {property.address.state} {property.address.zipCode}
-                <br />
-                {property.address.country}
+                {property.address?.country}
               </p>
               {property.geolocation && (
                 <div className="mt-4 h-64 bg-gray-200 rounded-lg flex items-center justify-center">

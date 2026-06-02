@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Real Estate SaaS',
-  description: 'Your branded property listing platform',
+  title: 'Not Just A Stay - Luxury Villa Stays in North Goa',
+  description: 'Discover our handpicked collection of luxury villas in North Goa. Private pools, stunning locations, and unforgettable experiences await you.',
+  openGraph: {
+    title: 'Not Just A Stay - Luxury Villa Stays in North Goa',
+    description: 'Discover our handpicked collection of luxury villas in North Goa.',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

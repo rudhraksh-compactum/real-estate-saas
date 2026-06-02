@@ -4,22 +4,13 @@ import { ChevronRight, Home } from 'lucide-react';
 import { getPublishedActivities } from '@/lib/data/activities';
 import { ActivityCard } from '@/components/ActivityCard';
 
-interface ActivitiesPageProps {
-  params: Promise<{ tenant: string }>;
-}
-
 /**
  * Generate SEO metadata for the activities list page
  */
-export async function generateMetadata({ params }: ActivitiesPageProps): Promise<Metadata> {
-  const { tenant } = await params;
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Experiences & Activities | Not Just A Stay',
     description: 'Discover unique local experiences and activities. From cooking classes to guided tours, find unforgettable adventures.',
-    alternates: {
-      canonical: `/${tenant}/activities`,
-    },
     openGraph: {
       title: 'Experiences & Activities | Not Just A Stay',
       description: 'Discover unique local experiences and activities.',
@@ -32,8 +23,7 @@ export async function generateMetadata({ params }: ActivitiesPageProps): Promise
  * Activities List Page
  * Server Component that fetches and displays all published activities
  */
-export default async function ActivitiesPage({ params }: ActivitiesPageProps) {
-  const { tenant } = await params;
+export default async function ActivitiesPage() {
   const activities = await getPublishedActivities();
 
   return (
@@ -41,7 +31,7 @@ export default async function ActivitiesPage({ params }: ActivitiesPageProps) {
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
         <Link
-          href={`/${tenant}`}
+          href="/"
           className="flex items-center gap-1 hover:text-gray-700 transition-colors"
         >
           <Home className="w-4 h-4" />
@@ -68,12 +58,11 @@ export default async function ActivitiesPage({ params }: ActivitiesPageProps) {
             <ActivityCard
               key={activity.id}
               activity={activity}
-              priority={index < 3} // Prioritize loading for above-fold images
+              priority={index < 3}
             />
           ))}
         </div>
       ) : (
-        /* Empty State */
         <div className="text-center py-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
             <svg
