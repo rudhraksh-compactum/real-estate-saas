@@ -7,7 +7,7 @@ export default buildConfig({
   admin: {
     user: 'users',
     meta: {
-      titleSuffix: '- Real Estate SaaS',
+      titleSuffix: 'Not Just A Stay - Admin',
     },
   },
   plugins: [

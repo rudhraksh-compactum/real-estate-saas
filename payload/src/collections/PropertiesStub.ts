@@ -62,6 +62,7 @@ export const PropertiesStub: CollectionConfig = {
               type: 'text',
               admin: {
                 description: 'Brief tagline for listings (max 150 chars)',
+                placeholder: 'A cozy 2-bedroom apartment near the beach',
               },
             },
           ],
@@ -120,13 +121,15 @@ export const PropertiesStub: CollectionConfig = {
               name: 'geolocation',
               type: 'point', // PostGIS geometry point for geospatial queries
               admin: {
-                description: 'Latitude/longitude coordinates',
+                label: 'Map Location',
+                description: 'Latitude/longitude coordinates for the map pin',
               },
             },
             {
               name: 'locality',
               type: 'text',
               admin: {
+                label: 'Neighborhood/Area',
                 description: 'Neighborhood or area name (e.g., "Koramangala")',
               },
             },
@@ -152,6 +155,7 @@ export const PropertiesStub: CollectionConfig = {
                 { label: 'Penthouse', value: 'penthouse' },
               ],
               admin: {
+                label: 'Bedroom Configuration',
                 description: 'Number of bedrooms, hall, kitchen',
               },
             },
@@ -165,6 +169,9 @@ export const PropertiesStub: CollectionConfig = {
                 { label: 'Condo', value: 'condo' },
                 { label: 'Farmhouse', value: 'farmhouse' },
               ],
+              admin: {
+                label: 'Type of Property',
+              },
             },
             {
               name: 'furnishingStatus',
@@ -174,6 +181,9 @@ export const PropertiesStub: CollectionConfig = {
                 { label: 'Semi-Furnished', value: 'semi_furnished' },
                 { label: 'Unfurnished', value: 'unfurnished' },
               ],
+              admin: {
+                label: 'Furnishing Level',
+              },
             },
             {
               name: 'bedrooms',
@@ -205,13 +215,15 @@ export const PropertiesStub: CollectionConfig = {
             {
               name: 'floor',
               type: 'group',
+              label: 'Floor Information',
               fields: [
                 {
                   name: 'current',
                   type: 'number',
                   min: 0,
                   admin: {
-                    description: 'Current floor number',
+                    label: 'Floor Number',
+                    description: 'Current floor number (0 for ground floor)',
                   },
                 },
                 {
@@ -219,7 +231,8 @@ export const PropertiesStub: CollectionConfig = {
                   type: 'number',
                   min: 1,
                   admin: {
-                    description: 'Total floors in building',
+                    label: 'Total Floors in Building',
+                    description: 'Total number of floors in the building',
                   },
                 },
               ],
@@ -238,6 +251,7 @@ export const PropertiesStub: CollectionConfig = {
                 { label: 'South-West', value: 'south_west' },
               ],
               admin: {
+                label: 'Direction Facing',
                 description: 'Direction the property faces',
               },
             },
@@ -255,7 +269,8 @@ export const PropertiesStub: CollectionConfig = {
               type: 'number',
               required: true,
               admin: {
-                description: 'Base price per night (INR)',
+                label: 'Nightly Price',
+                description: 'Base price per night (e.g., 2500 for ₹2,500)',
               },
             },
             {
@@ -315,7 +330,9 @@ export const PropertiesStub: CollectionConfig = {
               defaultValue: 1,
               min: 1,
               admin: {
+                label: 'Minimum Nights',
                 description: 'Minimum number of nights to book',
+                placeholder: 'e.g., 2 for minimum 2 nights stay',
               },
             },
             {
@@ -323,7 +340,9 @@ export const PropertiesStub: CollectionConfig = {
               type: 'number',
               min: 1,
               admin: {
-                description: 'Maximum number of nights allowed (leave blank for no limit)',
+                label: 'Maximum Nights',
+                description: 'Maximum number of nights allowed',
+                placeholder: 'Leave empty for no limit',
               },
             },
           ],
@@ -362,6 +381,7 @@ export const PropertiesStub: CollectionConfig = {
                 { label: 'Water Heater', value: 'water_heater' },
               ],
               admin: {
+                label: 'What Amenities Are Available?',
                 description: 'Select all amenities available at this property',
               },
             },
@@ -369,30 +389,36 @@ export const PropertiesStub: CollectionConfig = {
               name: 'houseRules',
               type: 'textarea',
               admin: {
+                label: 'House Rules',
                 description: 'Rules and guidelines for guests',
+                placeholder: 'e.g., No smoking inside, Quiet hours after 10 PM',
               },
             },
             {
               name: 'petPolicy',
               type: 'select',
               options: [
-                { label: 'Pets Allowed', value: 'pets_allowed' },
-                { label: 'Pets Not Allowed', value: 'pets_not_allowed' },
-                { label: 'Cats Only', value: 'cats_only' },
-                { label: 'Dogs Only', value: 'dogs_only' },
+                { label: 'Allowed', value: 'pets_allowed' },
+                { label: 'Not Allowed', value: 'pets_not_allowed' },
+                { label: 'Cats Welcome', value: 'cats_only' },
+                { label: 'Dogs Welcome', value: 'dogs_only' },
               ],
+              admin: {
+                label: 'Pet Policy',
+              },
             },
             {
               name: 'tenantPreference',
               type: 'select',
               options: [
-                { label: 'Families', value: 'families' },
+                { label: 'Families with Kids', value: 'families' },
                 { label: 'Couples', value: 'couples' },
                 { label: 'Business Travelers', value: 'business_travelers' },
                 { label: 'Anyone', value: 'anyone' },
               ],
               admin: {
-                description: 'Preferred guest type',
+                label: 'Best Suited For',
+                description: 'Preferred guest type for this property',
               },
             },
           ],
@@ -411,6 +437,7 @@ export const PropertiesStub: CollectionConfig = {
               hasMany: true,
               isSortable: true,
               admin: {
+                label: 'Property Photos',
                 description: 'Property photos (drag to reorder)',
               },
             },
@@ -419,7 +446,8 @@ export const PropertiesStub: CollectionConfig = {
               type: 'relationship',
               relationTo: 'media',
               admin: {
-                description: 'Main image shown in listings',
+                label: 'Cover Photo (Main Listing Image)',
+                description: 'This image will be shown as the main photo in search results and listings',
               },
             },
           ],
@@ -442,7 +470,7 @@ export const PropertiesStub: CollectionConfig = {
       ],
       admin: {
         position: 'sidebar',
-        description: 'Publication status',
+        description: 'Draft = not visible to guests, Published = live on website',
       },
     },
     {
