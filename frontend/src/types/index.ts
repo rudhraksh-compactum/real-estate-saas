@@ -4,6 +4,7 @@
 export type {
   Tenant,
   Property,
+  PropertyMedia,
   Address,
   Geolocation,
   VerticalType,
