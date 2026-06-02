@@ -67,7 +67,7 @@ export function PropertyCard({ property, priority = false, className }: Property
       )}
     >
       {/* Image Section */}
-      <Link href={`/properties/${slug}`} className="block">
+      <Link href={`/notjustastay/properties/${slug}`} className="block">
         <div className="relative aspect-[4/3] bg-gray-100">
           {featuredImage?.url ? (
             <Image
@@ -100,7 +100,7 @@ export function PropertyCard({ property, priority = false, className }: Property
       {/* Content Section */}
       <div className="p-4">
         {/* Title */}
-        <Link href={`/properties/${slug}`} className="hover:text-blue-600">
+        <Link href={`/notjustastay/properties/${slug}`} className="hover:text-blue-600">
           <h3 className="font-semibold text-gray-900 line-clamp-1">{title}</h3>
         </Link>
 
