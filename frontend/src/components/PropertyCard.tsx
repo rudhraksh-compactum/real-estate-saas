@@ -39,6 +39,7 @@ export function PropertyCard({ property, priority = false, className }: Property
     title,
     shortDescription,
     address,
+    locality,
     bhkType,
     nightlyPrice,
     currency = 'INR',
@@ -107,7 +108,7 @@ export function PropertyCard({ property, priority = false, className }: Property
         <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
           <MapPin className="w-4 h-4" />
           <span className="line-clamp-1">
-            {address?.locality ? `${address.locality}, ` : ''}{city}
+            {locality ? `${locality}, ` : ''}{city}
           </span>
         </div>
 

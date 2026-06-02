@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@payloadcms/next": "^3.0.0",
+    "@real-estate-saas/shared": "*",
     "clsx": "^2.1.0",
     "lucide-react": "^1.17.0",
     "maplibre-gl": "^5.24.0",
