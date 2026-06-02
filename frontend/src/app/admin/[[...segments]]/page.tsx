@@ -15,7 +15,7 @@ export const generateMetadata = generatePageMetadata;
 export default async function AdminPage(props: Args) {
   return RootPage({
     ...props,
-    config: (await import('../../../payload.config')).default,
+    config: (await import('../../../../payload.config')).default,
     importMap,
   });
 }
