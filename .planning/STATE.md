@@ -1,6 +1,6 @@
 # Project State
 
-**Last updated:** 2026-06-01
+**Last updated:** 2026-06-02
 
 ## Project Reference
 
@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 4 planned — Ready to execute
+**Current focus:** Phase 5 planned — Ready to execute
 
 ## Project Model
 
@@ -38,8 +38,12 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | 3.1 — Activities Collection | ✅ Complete | - | - |
 | 3.2 — Property Inquiry Form | ✅ Complete | - | - |
 | 3.3 — Activity Inquiry | ✅ Complete | - | - |
-| 4 — Search & Maps | 📋 Planned | 4/4 | 0% |
-| 5 — Storefront SSR | ○ Pending | 0/4 | 0% |
+| 4 — Search & Maps | ✅ Complete | 4/4 | 100% (4/4) |
+| 4.1 — Property Filters | ✅ Complete | - | - |
+| 4.2 — Property Map View | ✅ Complete | - | - |
+| 4.3 — POI Integration | ✅ Complete | - | - |
+| 4.4 — Geolocation Radius Search | ✅ Complete | - | - |
+| 5 — Storefront SSR | 📋 Planned | 0/4 | 0% |
 | 6 — Admin Polish | ○ Pending | 0/2 | 0% |
 
 ## Execution State
@@ -74,6 +78,7 @@ Updated ROADMAP.md and PROJECT.md accordingly.
 
 ## Recent Commits
 
+- `f7c3f8d` — feat(phase-4): Complete Search & Maps implementation
 - `2dfe21a` — docs(phase-2): Add 2.4 execution summary for Accounts collection
 - `f96ce5f` — feat(phase-3): Complete Activities & Inquiry phase
 - `a47b018` — feat(phase-2): Create Accounts collection, collections index, wire payload config
