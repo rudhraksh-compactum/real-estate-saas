@@ -163,7 +163,6 @@ export const Activities: CollectionConfig = {
               type: 'relationship',
               relationTo: 'media',
               hasMany: true,
-              isSortable: true,
               admin: {
                 description: 'Drag photos to reorder. The first photo is shown as the thumbnail in listings.',
               },

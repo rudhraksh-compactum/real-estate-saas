@@ -417,7 +417,6 @@ export const PropertiesStub: CollectionConfig = {
               type: 'relationship',
               relationTo: 'media',
               hasMany: true,
-              isSortable: true,
               admin: {
                 description: 'Property photos (drag to reorder)',
               },
