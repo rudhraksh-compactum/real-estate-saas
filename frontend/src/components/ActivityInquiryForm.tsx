@@ -4,17 +4,17 @@ import { useState } from 'react';
 import { submitActivityInquiry } from '@/lib/actions';
 import type { ActivityInquiryFormData } from '@/lib/schemas';
 
-export interface ActivityInquiryFormProps {
+interface ActivityInquiryFormProps {
   activityId: string;
   activityTitle?: string;
 }
 
 /**
  * Activity Inquiry Form Component
- * Captures name, email, phone, and message from guests interested in activities.
+ * Client component that captures name, email, phone, and message.
  * Submits lead to Payload CMS via Server Action.
  */
-export default function ActivityInquiryForm({ activityId, activityTitle }: ActivityInquiryFormProps) {
+export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInquiryFormProps) {
   // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +45,7 @@ export default function ActivityInquiryForm({ activityId, activityTitle }: Activ
     setLoading(false);
 
     if (result.success) {
-      setSuccess('Thank you for your interest! We will get back to you soon.');
+      setSuccess('Thank you for your inquiry! We will get back to you soon.');
       // Reset form
       setName('');
       setEmail('');
@@ -62,7 +62,7 @@ export default function ActivityInquiryForm({ activityId, activityTitle }: Activ
     <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
       {activityTitle && (
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Book: {activityTitle}
+          Inquire about this Experience
         </h3>
       )}
 
@@ -137,7 +137,7 @@ export default function ActivityInquiryForm({ activityId, activityTitle }: Activ
             minLength={10}
             rows={4}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Tell us about your group size, preferred dates, and any questions..."
+            placeholder="Tell us about your plans and any questions you have..."
           />
           {fieldErrors.message && (
             <p className="mt-1 text-sm text-red-600">{fieldErrors.message[0]}</p>
@@ -159,7 +159,7 @@ export default function ActivityInquiryForm({ activityId, activityTitle }: Activ
               Sending...
             </span>
           ) : (
-            'Book Now'
+            'Send Inquiry'
           )}
         </button>
 
