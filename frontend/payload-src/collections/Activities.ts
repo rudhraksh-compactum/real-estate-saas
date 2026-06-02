@@ -97,7 +97,6 @@ export const Activities: CollectionConfig = {
                   type: 'number',
                   min: 1,
                   admin: {
-                    label: 'Minimum Guests',
                     description: 'Minimum number of guests required for this experience',
                   },
                 },
@@ -106,7 +105,6 @@ export const Activities: CollectionConfig = {
                   type: 'number',
                   min: 1,
                   admin: {
-                    label: 'Maximum Guests',
                     description: 'Maximum number of guests allowed per booking',
                   },
                 },
