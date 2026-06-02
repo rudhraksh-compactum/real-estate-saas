@@ -461,25 +461,4 @@ export const PropertiesStub: CollectionConfig = {
       },
     },
   ],
-
-  // ============================================================
-  // INDEXES
-  // ============================================================
-  indexes: [
-    {
-      fields: {
-        status: 1,
-      },
-    },
-    {
-      fields: {
-        nightlyPrice: 1,
-      },
-    },
-    {
-      fields: {
-        'address.city': 1,
-      },
-    },
-  ],
 };

@@ -225,9 +225,5 @@ export const Activities: CollectionConfig = {
       },
     },
   ],
-  indexes: [
-    { fields: { status: 1 } },
-    { fields: { price: 1 } },
-  ],
   timestamps: true,
 };
