@@ -1,6 +1,6 @@
 import { buildConfig } from 'payload';
 import { withPayload } from '@payloadcms/next/withPayload';
-import { sqliteAdapter } from '@payloadcms/db-sqlite';
+import { postgresAdapter } from '@payloadcms/db-postgres';
 import { collections } from './payload/src/collections';
 
 export default buildConfig({
@@ -15,13 +15,12 @@ export default buildConfig({
       nextConfig: './frontend/next.config.mjs',
     }),
   ],
-  db: sqliteAdapter({
-    client: {
-      url: 'file:./payload-data.db',
-    },
+  db: postgresAdapter({
+    pooled: true,
+    connectionString: process.env.DATABASE_URL,
   }),
   collections: collections,
-  secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-dev',
+  secret: process.env.PAYLOAD_SECRET,
   types: {
     autofill: true,
   },
