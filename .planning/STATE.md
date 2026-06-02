@@ -43,7 +43,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | 4.2 — Property Map View | ✅ Complete | - | - |
 | 4.3 — POI Integration | ✅ Complete | - | - |
 | 4.4 — Geolocation Radius Search | ✅ Complete | - | - |
-| 5 — Storefront SSR | 📋 Planned | 0/4 | 0% |
+| 5 — Storefront SSR | ✅ Complete | 4/4 | 100% (4/4) |
 | 6 — Admin Polish | ○ Pending | 0/2 | 0% |
 
 ## Execution State
