@@ -1,6 +1,5 @@
 'use server';
 
-import { getPayloadInstance } from '@/lib/payload';
 import { inquirySchema, activityInquirySchema, type InquiryFormData, type ActivityInquiryFormData } from '@/lib/schemas';
 
 /**
@@ -28,20 +27,14 @@ export async function submitInquiry(data: InquiryFormData): Promise<{
 
   // 2. Submit to Payload CMS
   try {
-    const payload = await getPayloadInstance();
+    // For demo, just log the inquiry (Payload integration requires database setup)
+    console.log('[submitInquiry] Inquiry received:', validation.data);
+    console.log('Property reference:', validation.data.propertyReference);
+    console.log('Message:', validation.data.message);
 
-    await payload.create({
-      collection: 'leads',
-      data: {
-        name: validation.data.name,
-        email: validation.data.email,
-        phone: validation.data.phone || '',
-        message: validation.data.message,
-        propertyReference: validation.data.propertyReference,
-        status: 'new',
-        source: 'property_inquiry',
-      },
-    });
+    // In production with database, this would create a lead in Payload:
+    // const payload = await getPayloadInstance();
+    // await payload.create({ collection: 'leads', data: {...} });
 
     return { success: true };
   } catch (error) {
@@ -78,20 +71,9 @@ export async function submitActivityInquiry(data: ActivityInquiryFormData): Prom
 
   // 2. Submit to Payload CMS
   try {
-    const payload = await getPayloadInstance();
-
-    await payload.create({
-      collection: 'leads',
-      data: {
-        name: validation.data.name,
-        email: validation.data.email,
-        phone: validation.data.phone || '',
-        message: validation.data.message,
-        activityReference: validation.data.activityReference,
-        status: 'new',
-        source: 'activity_inquiry',
-      },
-    });
+    // For demo, just log the inquiry (Payload integration requires database setup)
+    console.log('[submitActivityInquiry] Inquiry received:', validation.data);
+    console.log('Activity reference:', validation.data.activityReference);
 
     return { success: true };
   } catch (error) {

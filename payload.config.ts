@@ -1,6 +1,6 @@
 import { buildConfig } from 'payload';
-import { nextPlugin } from '@payloadcms/next';
-import { postgresAdapter } from '@payloadcms/db-postgres';
+import { withPayload } from '@payloadcms/next/withPayload';
+import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { collections } from './payload/src/collections';
 
 export default buildConfig({
@@ -11,13 +11,17 @@ export default buildConfig({
     },
   },
   plugins: [
-    nextPlugin({
-      nextConfig: './next.config.ts',
+    withPayload({
+      nextConfig: './frontend/next.config.mjs',
     }),
   ],
-  db: postgresAdapter({}),
+  db: sqliteAdapter({
+    client: {
+      url: 'file:./payload-data.db',
+    },
+  }),
   collections: collections,
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-dev',
   types: {
     autofill: true,
   },

@@ -1,4 +1,5 @@
 import { getPayload } from 'payload';
+import configPromise from '../../payload.config';
 
 // Payload singleton for server-side usage
 // Client-side should use REST API directly
@@ -10,12 +11,9 @@ export const getPayloadInstance = async () => {
     return cachedPayload;
   }
 
+  // Always pass config for Next.js integration
   cachedPayload = getPayload({
-    // Payload will read config from payload.config.ts at project root
-    // Next.js uses process.env.NODE_ENV (not import.meta.env.MODE which is Vite-specific)
-    config: process.env.NODE_ENV === 'production'
-      ? (await import('@/../../payload.config')).default
-      : undefined,
+    config: await configPromise,
   });
 
   return cachedPayload;

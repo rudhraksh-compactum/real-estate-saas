@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.0",
+    "@payloadcms/db-sqlite": "^3.85.0",
     "@payloadcms/next": "^3.85.0",
+    "better-sqlite3": "^12.10.0",
     "payload": "^3.85.0"
   }
 }

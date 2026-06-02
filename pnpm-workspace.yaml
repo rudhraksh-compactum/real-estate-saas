@@ -3,5 +3,6 @@ packages:
   - 'frontend'
   - 'packages/*'
 allowBuilds:
-  esbuild: set this to true or false
-  unrs-resolver: set this to true or false
+  better-sqlite3: false
+  esbuild: false
+  unrs-resolver: false

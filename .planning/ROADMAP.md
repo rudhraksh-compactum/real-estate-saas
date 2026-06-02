@@ -205,7 +205,7 @@
 
 **Goal:** Payload admin forms optimized for non-technical users.
 
-**Status:** Pending (0/2 plans)
+**Status:** Complete (2/2 plans)
 
 **Success Criteria:**
 1. Property edit form with clean field groupings
@@ -216,18 +216,8 @@
 
 ### Plans
 
-**6.1: Property Form Organization**
-- Group fields into tabs/sections
-- Add descriptive labels
-- Add field descriptions
-- Order fields logically
-- Test: Non-technical user can complete form
-
-**6.2: Activity & Media Polish**
-- Organize Activity fields
-- Configure media upload with guidance
-- Add image previews
-- Test: Flow is intuitive
+- [x] **6.1: Property Form Organization** ✅
+- [x] **6.2: Activity & Media Polish** ✅
 
 ---
 

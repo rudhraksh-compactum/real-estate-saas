@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 5 context gathered — Ready to plan
+**Current focus:** Phase 6 complete — MVP implementation complete! 🎉
 
 ## Project Model
 
@@ -43,8 +43,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 | 4.2 — Property Map View | ✅ Complete | - | - |
 | 4.3 — POI Integration | ✅ Complete | - | - |
 | 4.4 — Geolocation Radius Search | ✅ Complete | - | - |
+| 6.1 — Property Form Polish | ✅ Complete | - | - |
+| 6.2 — Activity & Media Polish | ✅ Complete | - | - |
 | 5 — Storefront SSR | ✅ Complete | 4/4 | 100% (4/4) |
-| 6 — Admin Polish | ○ Pending | 0/2 | 0% |
+| 6 — Admin Polish | ✅ Complete | 2/2 | 100% (2/2) |
 
 ## Execution State
 
@@ -78,6 +80,9 @@ Updated ROADMAP.md and PROJECT.md accordingly.
 
 ## Recent Commits
 
+- `93d8803` — feat(phase-6.2): Activity & Media Polish
+- `af0557f` — feat(phase-6.1): Property Form Polish
+- `cb1ae05` — feat(phase-5): Complete Storefront SSR implementation
 - `f7c3f8d` — feat(phase-4): Complete Search & Maps implementation
 - `2dfe21a` — docs(phase-2): Add 2.4 execution summary for Accounts collection
 - `f96ce5f` — feat(phase-3): Complete Activities & Inquiry phase

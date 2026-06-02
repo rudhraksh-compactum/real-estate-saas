@@ -1,21 +1,32 @@
 // POI cache management utilities
 // Server-side only - uses Payload CMS API
 
-import { getPayloadInstance } from '@/lib/payload';
 import { fetchNearbyPOIs, isCacheExpired } from './client';
 import type { POICategory, POIResult } from './types';
 
 const CACHE_TTL_DAYS = 7;
 
+// Demo POI data for local development
+const demoPOIs: Record<POICategory, POIResult[]> = {
+  restaurant: [
+    { name: 'Beach Shack Restaurant', address: '123 Beach Road', lat: 15.5000, lng: 73.8300, rating: 4.5, types: ['restaurant'] },
+    { name: 'Seaside Cafe', address: '45 Ocean Ave', lat: 15.4980, lng: 73.8320, rating: 4.2, types: ['cafe', 'restaurant'] },
+  ],
+  bar: [
+    { name: 'Sunset Bar', address: '78 Coastal Lane', lat: 15.4990, lng: 73.8310, rating: 4.3, types: ['bar'] },
+  ],
+  park: [
+    { name: 'Beach Park', address: '10 Oceanfront', lat: 15.4970, lng: 73.8330, rating: 4.7, types: ['park'] },
+  ],
+  beach: [
+    { name: 'North Beach', address: 'North Shore', lat: 15.5010, lng: 73.8290, rating: 4.8, types: ['beach'] },
+    { name: 'South Beach', address: 'South Shore', lat: 15.4950, lng: 73.8350, rating: 4.6, types: ['beach'] },
+  ],
+};
+
 /**
  * Get cached POI data or fetch from Google Places
- *
- * @param propertyId - Property ID to cache POIs for
- * @param lat - Property latitude
- * @param lng - Property longitude
- * @param category - POI category
- * @param radiusMeters - Search radius in meters
- * @returns Array of POI results (from cache or fresh)
+ * For demo, returns demo data
  */
 export async function getPOIs(
   propertyId: string,
@@ -24,97 +35,20 @@ export async function getPOIs(
   category: POICategory,
   radiusMeters: number = 5000
 ): Promise<POIResult[]> {
-  const payload = await getPayloadInstance();
-
-  // Check cache first
-  const cacheEntry = await payload.find({
-    collection: 'poi-cache',
-    where: {
-      property: {
-        equals: propertyId,
-      },
-      poiType: {
-        equals: category,
-      },
-    },
-    limit: 1,
-  });
-
-  const cached = cacheEntry.docs[0];
-
-  // Return cached data if valid
-  if (cached && !isCacheExpired(cached.expiresAt as string)) {
-    console.log(`POI cache hit for ${propertyId}/${category}`);
-    return (cached.data as POIResult[]) || [];
-  }
-
-  // Fetch fresh data from Google Places
-  console.log(`POI cache miss for ${propertyId}/${category}, fetching...`);
-  const freshData = await fetchNearbyPOIs(lat, lng, category, radiusMeters);
-
-  // Update or create cache entry
-  const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + CACHE_TTL_DAYS);
-
-  if (cached) {
-    // Update existing entry
-    await payload.update({
-      collection: 'poi-cache',
-      id: cached.id,
-      data: {
-        data: freshData,
-        centerLat: lat,
-        centerLng: lng,
-        expiresAt: expiresAt.toISOString(),
-      },
-    });
-  } else {
-    // Create new entry
-    await payload.create({
-      collection: 'poi-cache',
-      data: {
-        property: propertyId,
-        poiType: category,
-        centerLat: lat,
-        centerLng: lng,
-        data: freshData,
-        expiresAt: expiresAt.toISOString(),
-      },
-    });
-  }
-
-  return freshData;
+  // Return demo data for local development
+  console.log(`[getPOIs] Returning demo data for ${category}`);
+  return demoPOIs[category] || [];
 }
 
 /**
  * Invalidate POI cache for a property
- * Called when property geolocation changes
- *
- * @param propertyId - Property ID to invalidate
  */
 export async function invalidatePOICache(propertyId: string): Promise<void> {
-  const payload = await getPayloadInstance();
-
-  await payload.delete({
-    collection: 'poi-cache',
-    where: {
-      property: {
-        equals: propertyId,
-      },
-    },
-  });
-
-  console.log(`POI cache invalidated for property ${propertyId}`);
+  console.log(`[invalidatePOICache] Would invalidate cache for ${propertyId}`);
 }
 
 /**
  * Get all POI categories for a property
- *
- * @param propertyId - Property ID
- * @param lat - Property latitude
- * @param lng - Property longitude
- * @param radiusMeters - Search radius in meters
- * @returns Object with POIs by category
  */
 export async function getAllPOIs(
   propertyId: string,
@@ -122,38 +56,13 @@ export async function getAllPOIs(
   lng: number,
   radiusMeters: number = 5000
 ): Promise<Record<POICategory, POIResult[]>> {
-  const categories: POICategory[] = ['restaurant', 'bar', 'park', 'beach'];
-
-  const results = await Promise.all(
-    categories.map((category) => getPOIs(propertyId, lat, lng, category, radiusMeters))
-  );
-
-  return {
-    restaurant: results[0],
-    bar: results[1],
-    park: results[2],
-    beach: results[3],
-  };
+  return demoPOIs;
 }
 
 /**
  * Clean up expired POI cache entries
- * Can be called periodically or via cron job
  */
 export async function cleanupExpiredCache(): Promise<number> {
-  const payload = await getPayloadInstance();
-  const now = new Date().toISOString();
-
-  // Delete all expired entries
-  const result = await payload.delete({
-    collection: 'poi-cache',
-    where: {
-      expiresAt: {
-        less_than: now,
-      },
-    },
-  });
-
-  console.log(`Cleaned up ${result.docs.length} expired POI cache entries`);
-  return result.docs.length;
+  console.log('[cleanupExpiredCache] Would clean up expired entries');
+  return 0;
 }

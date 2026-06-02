@@ -1,7 +1,5 @@
-import { withPayload } from '@payloadcms/next';
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Enable standalone output for Docker
   output: 'standalone',
 
@@ -16,4 +14,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPayload(nextConfig);
+export default nextConfig;
