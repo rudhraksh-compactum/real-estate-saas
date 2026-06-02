@@ -1,7 +1,7 @@
 import { buildConfig } from 'payload';
 import { withPayload } from '@payloadcms/next/withPayload';
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import { collections } from './payload/src/collections';
+import { collections } from './payload-src/collections';
 
 export default buildConfig({
   admin: {
@@ -12,7 +12,7 @@ export default buildConfig({
   },
   plugins: [
     withPayload({
-      nextConfig: './frontend/next.config.mjs',
+      nextConfig: './next.config.mjs',
     }),
   ],
   db: postgresAdapter({

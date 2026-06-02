@@ -12,9 +12,10 @@ type ClientPageProps = {
   }>;
 };
 
+// Note: Client component uses dynamic import for config
 export const ClientPage = (props: ClientPageProps) =>
   RootPage({
     ...props,
-    config: import('@/payload.config').then(m => m.default),
+    config: import('../../payload.config').then(m => m.default),
     importMap,
   });

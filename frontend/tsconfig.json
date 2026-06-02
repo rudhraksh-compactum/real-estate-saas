@@ -16,8 +16,7 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["../packages/shared/src/*"],
-      "@/payload.config": ["./payload.config.ts"]
+      "@shared/*": ["../packages/shared/src/*"]
     },
     "forceConsistentCasingInFileNames": true
   },
