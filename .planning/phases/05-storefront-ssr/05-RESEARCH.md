@@ -815,22 +815,22 @@ export default function robots(): MetadataRoute.Robots {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Property Slug Field**
-   - What we know: `PropertiesStub` uses `useAsTitle: 'title'` but slug may need explicit field
-   - What's unclear: Does Payload auto-generate slug from title, or is explicit slug field needed?
-   - Recommendation: Add explicit `slug` field to properties collection for SEO-friendly URLs
+   - What we know: `PropertiesStub` uses `useAsTitle: 'title'` but has NO explicit `slug` field
+   - Resolution: **Add explicit `slug` field to PropertiesStub collection** for SEO-friendly URLs. The slug should be a `text` field (not auto-generated) so admins can set it manually.
+   - Action: Add slug field to `payload/src/collections/PropertiesStub.ts`
 
 2. **Media URL Field**
-   - What we know: Media collection exists, properties reference media via `featuredImage` and `gallery`
-   - What's unclear: What's the exact field name for URL (probably `url`, but verify)
-   - Recommendation: Check `Media.ts` collection definition for URL field name
+   - What we know: Media collection uses Payload's built-in upload system which provides `url` field
+   - Resolution: **Use `url` field from Payload's upload system** — verified by examining `Media.ts`
+   - Action: Access via `property.featuredImage.url` (depth=2 resolves relationship)
 
 3. **Tenant Slug Mapping**
    - What we know: Demo client is "notjustastay" with URL `notjustastay.com`
-   - What's unclear: How does `[tenant]` param map to actual account/branding data?
-   - Recommendation: Phase 5 can use "notjustastay" hardcoded; multi-tenant mapping is Phase 6+
+   - Resolution: **Hardcode "notjustastay" for MVP** — multi-tenant routing is Phase 6+
+   - Action: All Phase 5 pages use `params.tenant = 'notjustastay'`
 
 ---
 
