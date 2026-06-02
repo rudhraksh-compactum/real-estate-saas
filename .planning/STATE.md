@@ -8,7 +8,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-01)
 
 **Core value:** Property businesses get a professional website with a CMS — no developer needed to manage listings and capture leads.
 
-**Current focus:** Phase 5 planned — Ready to execute
+**Current focus:** Phase 5 context gathered — Ready to plan
 
 ## Project Model
 
