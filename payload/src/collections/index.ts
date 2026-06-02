@@ -17,6 +17,7 @@ import { Leads } from './Leads';
 import { Media } from './Media';
 import { Accounts } from './Accounts';
 import { Activities } from './Activities';
+import { POICache } from './POICache';
 
 /**
  * All collections exported from this module.
@@ -28,6 +29,7 @@ export const collections = [
   Media,
   Accounts,
   Activities,
+  POICache,
 ];
 
 // Re-export individual collections for granular imports
@@ -36,3 +38,4 @@ export { Leads } from './Leads';
 export { Media } from './Media';
 export { Accounts } from './Accounts';
 export { Activities } from './Activities';
+export { POICache } from './POICache';
