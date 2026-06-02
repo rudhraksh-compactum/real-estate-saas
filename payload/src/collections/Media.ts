@@ -14,6 +14,7 @@ export const Media: CollectionConfig = {
   admin: {
     useAsTitle: 'filename',
     defaultColumns: ['filename', 'mimeType', 'filesize'],
+    description: 'Upload images for your website. Accepted formats: JPEG, PNG, WebP, GIF. Maximum file size varies by server config.',
   },
   upload: {
     // Local filesystem storage for MVP
@@ -61,14 +62,18 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'Alternative text for accessibility (required)',
+        label: 'Alt Text',
+        description: 'Describe the image for screen readers and SEO. This text appears if the image cannot load.',
+        placeholder: 'e.g., Beachfront villa with sunset view',
       },
     },
     {
       name: 'caption',
       type: 'text',
       admin: {
-        description: 'Image caption or credit',
+        label: 'Caption',
+        description: 'Optional caption displayed below the image. Useful for photo credits or additional context.',
+        placeholder: 'e.g., Photo by John Doe',
       },
     },
   ],

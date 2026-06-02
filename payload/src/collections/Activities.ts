@@ -42,6 +42,7 @@ export const Activities: CollectionConfig = {
               required: true,
               admin: {
                 description: 'Activity or experience name',
+                placeholder: 'Sunset Beach Yoga Session',
               },
             },
             {
@@ -49,6 +50,7 @@ export const Activities: CollectionConfig = {
               type: 'text',
               admin: {
                 description: 'Brief tagline for listings (max 150 chars)',
+                placeholder: 'A relaxing yoga experience as the sun goes down',
               },
             },
           ],
@@ -60,14 +62,15 @@ export const Activities: CollectionConfig = {
               name: 'description',
               type: 'textarea',
               admin: {
-                description: 'Full description of the experience',
+                description: 'Full description of the experience. Include what guests will do, learn, or experience.',
+                placeholder: 'Describe the experience in detail. What will guests do? What makes this special? What should they expect?',
               },
             },
             {
               name: 'highlights',
               type: 'array',
               admin: {
-                description: 'Key highlights of this experience',
+                description: "Key selling points guests will love (e.g., 'Learn authentic recipes', 'Stunning ocean views', 'All equipment provided')",
               },
               fields: [
                 {
@@ -81,7 +84,8 @@ export const Activities: CollectionConfig = {
               name: 'duration',
               type: 'text',
               admin: {
-                description: 'Duration (e.g., "2 hours", "Full day")',
+                description: 'Duration of the experience (e.g., "2 hours", "Half day (4 hours)", "Full day (8 hours)")',
+                placeholder: 'e.g., 2 hours, Half day (4 hours), Full day (8 hours)',
               },
             },
             {
@@ -93,7 +97,8 @@ export const Activities: CollectionConfig = {
                   type: 'number',
                   min: 1,
                   admin: {
-                    description: 'Minimum number of guests',
+                    label: 'Minimum Guests',
+                    description: 'Minimum number of guests required for this experience',
                   },
                 },
                 {
@@ -101,7 +106,8 @@ export const Activities: CollectionConfig = {
                   type: 'number',
                   min: 1,
                   admin: {
-                    description: 'Maximum number of guests',
+                    label: 'Maximum Guests',
+                    description: 'Maximum number of guests allowed per booking',
                   },
                 },
               ],
@@ -116,7 +122,8 @@ export const Activities: CollectionConfig = {
               type: 'number',
               required: true,
               admin: {
-                description: 'Price per person (INR)',
+                description: 'Price per person. Enter the numeric value (e.g., 1500 for ₹1,500 per person)',
+                placeholder: '1500',
               },
             },
             {
@@ -136,14 +143,16 @@ export const Activities: CollectionConfig = {
               name: 'includes',
               type: 'textarea',
               admin: {
-                description: 'What is included in the price',
+                description: 'What is included in the price. List items one per line or separated by commas.',
+                placeholder: 'e.g., All ingredients, Recipe booklet, Take-home samples, Equipment rental',
               },
             },
             {
               name: 'cancellationPolicy',
               type: 'textarea',
               admin: {
-                description: 'Cancellation and refund policy',
+                description: 'Cancellation and refund policy. Be clear about deadlines and conditions.',
+                placeholder: 'e.g., Free cancellation up to 48 hours before the experience. No refund for cancellations within 48 hours.',
               },
             },
           ],
@@ -158,7 +167,8 @@ export const Activities: CollectionConfig = {
               hasMany: true,
               isSortable: true,
               admin: {
-                description: 'Activity photos (drag to reorder)',
+                label: 'Experience Photos',
+                description: 'Drag photos to reorder. The first photo is shown as the thumbnail in listings.',
               },
             },
             {
@@ -166,7 +176,8 @@ export const Activities: CollectionConfig = {
               type: 'relationship',
               relationTo: 'media',
               admin: {
-                description: 'Main image shown in listings',
+                label: 'Cover Photo',
+                description: 'This image will be shown in search results and listings. Choose a high-quality photo that represents the experience.',
               },
             },
           ],
@@ -185,7 +196,8 @@ export const Activities: CollectionConfig = {
               name: 'bookingLeadTime',
               type: 'number',
               admin: {
-                description: 'Minimum advance booking time in hours',
+                label: 'Advance Notice Required',
+                description: 'Minimum hours between booking and experience start. Guests cannot book within this window.',
               },
             },
           ],
@@ -204,7 +216,7 @@ export const Activities: CollectionConfig = {
         { label: 'Archived', value: 'archived' },
       ],
       admin: {
-        description: 'Activity publication status',
+        description: 'Draft = not visible on website. Published = live on website. Archived = hidden but retained.',
         position: 'sidebar',
       },
     },
@@ -214,7 +226,9 @@ export const Activities: CollectionConfig = {
       relationTo: 'properties',
       hasMany: true,
       admin: {
-        description: 'Properties this activity is associated with',
+        label: 'Related Properties',
+        description: 'Link this experience to relevant properties for bundled bookings and cross-promotion.',
+        position: 'sidebar',
       },
     },
   ],
