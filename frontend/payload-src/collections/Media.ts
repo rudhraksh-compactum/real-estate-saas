@@ -62,7 +62,6 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        label: 'Alt Text',
         description: 'Describe the image for screen readers and SEO. This text appears if the image cannot load.',
         placeholder: 'e.g., Beachfront villa with sunset view',
       },
@@ -71,7 +70,6 @@ export const Media: CollectionConfig = {
       name: 'caption',
       type: 'text',
       admin: {
-        label: 'Caption',
         description: 'Optional caption displayed below the image. Useful for photo credits or additional context.',
         placeholder: 'e.g., Photo by John Doe',
       },

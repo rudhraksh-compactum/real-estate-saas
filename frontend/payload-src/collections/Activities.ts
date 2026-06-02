@@ -165,7 +165,6 @@ export const Activities: CollectionConfig = {
               hasMany: true,
               isSortable: true,
               admin: {
-                label: 'Experience Photos',
                 description: 'Drag photos to reorder. The first photo is shown as the thumbnail in listings.',
               },
             },
@@ -174,7 +173,6 @@ export const Activities: CollectionConfig = {
               type: 'relationship',
               relationTo: 'media',
               admin: {
-                label: 'Cover Photo',
                 description: 'This image will be shown in search results and listings. Choose a high-quality photo that represents the experience.',
               },
             },
@@ -194,7 +192,6 @@ export const Activities: CollectionConfig = {
               name: 'bookingLeadTime',
               type: 'number',
               admin: {
-                label: 'Advance Notice Required',
                 description: 'Minimum hours between booking and experience start. Guests cannot book within this window.',
               },
             },
@@ -224,7 +221,6 @@ export const Activities: CollectionConfig = {
       relationTo: 'properties',
       hasMany: true,
       admin: {
-        label: 'Related Properties',
         description: 'Link this experience to relevant properties for bundled bookings and cross-promotion.',
         position: 'sidebar',
       },
