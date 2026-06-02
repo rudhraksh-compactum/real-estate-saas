@@ -107,7 +107,7 @@
 
 **Goal:** Property filters, MapLibre integration, POI caching.
 
-**Status:** Planned (4/4 plans)
+**Status:** Complete (4/4 plans)
 
 **Success Criteria:**
 1. All filter types implemented (BHK, type, budget, locality, amenities, etc.)
@@ -117,10 +117,10 @@
 
 ### Plan Status
 
-- [ ] 4.1 — Property Filters
-- [ ] 4.2 — Property Map View
-- [ ] 4.3 — POI Integration
-- [ ] 4.4 — Geolocation Search
+- [x] 4.1 — Property Filters
+- [x] 4.2 — Property Map View
+- [x] 4.3 — POI Integration
+- [x] 4.4 — Geolocation Search
 
 ### Plans
 
@@ -157,7 +157,7 @@
 
 **Goal:** SEO-optimized public pages for all routes.
 
-**Status:** Pending (0/4 plans)
+**Status:** Planned (0/4 plans)
 
 **Success Criteria:**
 1. Home page renders with featured properties
@@ -246,4 +246,4 @@ These items are **out of scope** for MVP and will be addressed in Version 2:
 
 ---
 
-*Last updated: 2026-06-02 — Phase 4 planned*
+*Last updated: 2026-06-02 — Phase 4 complete, Phase 5 planned*
