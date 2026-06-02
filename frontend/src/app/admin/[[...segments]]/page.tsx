@@ -1,18 +1,14 @@
 import { RootPage, generatePageMetadata } from '@payloadcms/next/views';
 import { importMap } from '@/app/importMap';
 
-type Args = {
-  params: Promise<{
-    segments: string[];
-  }>;
-  searchParams: Promise<{
-    [key: string]: string;
-  }>;
+type PageProps = {
+  params: Promise<{ segments: string[] }>;
+  searchParams: Promise<{ [key: string]: string }>;
 };
 
-export const generateMetadata = generatePageMetadata;
+export { generatePageMetadata as generateMetadata };
 
-export default async function AdminPage(props: Args) {
+export default async function AdminPage(props: PageProps) {
   return RootPage({
     ...props,
     config: (await import('../../../../payload.config')).default,

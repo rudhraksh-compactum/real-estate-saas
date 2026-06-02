@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getPropertyBySlug, getPublishedProperties } from '@/lib/data/properties';
 import { PropertyGallery } from '@/components/PropertyGallery';
-import { InquiryForm } from '@/components/InquiryForm';
+import InquiryForm from '@/components/InquiryForm';
 
 interface PropertyPageProps {
   params: Promise<{
