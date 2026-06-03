@@ -11,8 +11,11 @@ export default buildConfig({
     },
   },
   db: postgresAdapter({
-    push: true,
     migrationDir: './migrations',
+    pool: {
+      min: 2,
+      max: 10,
+    },
   }),
   collections: collections,
   secret: process.env.PAYLOAD_SECRET || 'fallback-secret-change-in-production',
