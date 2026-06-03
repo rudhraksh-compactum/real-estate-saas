@@ -1,163 +1,114 @@
-# Payload CMS + Neon + Vercel Troubleshooting Guide
+# Payload CMS + Neon + Vercel + Supabase Troubleshooting Guide
 
 ## Overview
 
-This document logs all errors encountered during the Payload CMS + Neon + Vercel integration, along with attempted solutions.
+This document logs all errors encountered during the Payload CMS + Neon + Vercel + Supabase integration, along with attempted solutions.
+
+---
+
+## Summary of Issues
+
+After extensive debugging, Payload CMS admin fails with a React rendering error:
+
+```
+TypeError: Cannot read properties of undefined (reading 'H')
+    at ../node_modules/@payloadcms/ui/dist/exports/client/chunk-MRRDX6D7.js:787:70
+```
+
+**This is NOT a database connection issue** - the database connects successfully.
+
+The error occurs in Payload's own UI bundle during React hydration/rendering.
+
+---
+
+## What Works
+
+| Component | Status |
+|-----------|--------|
+| Frontend pages | ✅ Working |
+| Property detail pages | ✅ Working |
+| Database connection (Supabase) | ✅ Connected |
+| Payload schema creation | ✅ Tables created |
+| Payload admin UI | ❌ React rendering error |
 
 ---
 
 ## Error Log
 
-### Error 1: "users is not a valid admin"
+### Error 1: Payload Admin React Rendering Error
+
+**Symptom:** 
+```
+TypeError: Cannot read properties of undefined (reading 'H')
+    at ../node_modules/@payloadcms/ui/dist/exports/client/chunk-MRRDX6D7.js:787:70
+```
+
+**Root Cause:** Unknown - occurs in Payload's own UI bundle during React hydration.
+
+**Investigations:**
+- Database connection: WORKS (schema pulls successfully)
+- Payload connects: WORKS
+- Payload creates tables: WORKS
+- Payload admin UI renders: FAILS
+
+**Attempted Solutions:**
+1. Simplified Users collection
+2. Changed database provider (Neon → Supabase)
+3. Modified admin config
+4. Various Payload configuration changes
+
+**Status:** UNRESOLVED - Payload CMS 3.x admin UI fails to render in Next.js 14 App Router
+
+---
+
+### Error 2: "users is not a valid admin"
 
 **Symptom:** Payload CMS admin page returns 500 error with message "users is not a valid admin user collection"
 
 **Root Cause:** Payload config was missing the `admin.user` property, or the Users collection was not properly configured.
 
-**Solution:** Created `Users.ts` collection with proper auth configuration:
-```typescript
-export const Users: CollectionConfig = {
-  slug: 'users',
-  auth: true,
-  admin: {
-    defaultColumns: ['email', 'name', 'role'],
-  },
-  fields: [
-    { name: 'name', type: 'text' },
-    { name: 'role', type: 'select', options: [...] },
-  ],
-};
-```
+**Solution:** Created `Users.ts` collection with proper auth configuration.
 
-**Status:** Fixed by adding Users collection to collections index.
+**Status:** Fixed
 
 ---
 
-### Error 2: "ECONNREFUSED" / Database Connection Refused
+### Error 3: "ECONNREFUSED" / Database Connection Refused (Neon)
 
 **Symptom:** Runtime logs show "connect ECONNREFUSED" when accessing /admin
 
 **Root Cause:** DATABASE_URL environment variable was not set in Vercel.
 
-**Solution:** Added environment variables in Vercel dashboard:
-- DATABASE_URL
-- PAYLOAD_SECRET
-- NEXT_PUBLIC_BASE_URL
+**Solution:** Added environment variables in Vercel dashboard.
 
-**Status:** Fixed after adding environment variables.
+**Status:** Fixed
 
 ---
 
-### Error 3: "Failed query: se..." / Query Execution Failure
-
-**Symptom:** /admin returns 500 with "Failed query" in logs. Payload connects but queries fail.
-
-**Root Cause:** Database schema not created - Payload tables don't exist in Neon.
-
-**Solution Attempted:** Set `push: true` in postgresAdapter config to auto-create schema on startup.
-
-**Status:** Not fully resolved - DNS resolution issues prevent proper testing.
-
----
-
-### Error 4: "getaddrinfo ENOTFOUND" - DNS Resolution Failure
+### Error 4: "getaddrinfo ENOTFOUND" - DNS Resolution Failure (Neon)
 
 **Symptom:** 
 ```
 getaddrinfo ENOTFOUND ep-round-art-aos6mbkn.c-2.ap-southeast-1.aws.neon.tech
 ```
 
-**Root Cause:** Node.js's pg library cannot resolve the Neon hostname in certain network environments.
+**Root Cause:** Node.js's pg library cannot resolve the Neon hostname in serverless environments.
 
-**Investigations:**
-1. `dig` command resolves hostname correctly to IPs (18.138.49.39, 3.0.167.45, 13.251.17.193)
-2. Raw TCP connection to port 5432 succeeds
-3. Node.js DNS resolver fails with EREFUSED
-4. Vercel (US East region) cannot resolve the hostname
-5. Local machine (India) can resolve via some DNS servers but not Node.js
-
-**Attempted Solutions:**
-
-1. **Connection Pooling ON in Neon**
-   - Uses `-pooler` in hostname
-   - Still fails: `ENOTFOUND ep-round-art-aos6mbkn-pooler.c-2.ap-southeast-1.aws.neon.tech`
-
-2. **Direct Connection (Pooler OFF)**
-   - Uses hostname without `-pooler`
-   - Still fails: `ENOTFOUND ep-round-art-aos6mbkn.c-2.ap-southeast-1.aws.neon.tech`
-
-3. **IP Address Instead of Hostname**
-   - Uses 18.138.49.39 directly
-   - SSL cert mismatch: "Hostname/IP does not match certificate's altnames"
-   - Added `options: 'endpoint=ep-round-art-aos6mbkn'` - partially worked in testing
-
-4. **SSL Options**
-   - Tried `sslmode=require`
-   - Tried `sslmode=verify-full`
-   - Tried `ssl: { rejectUnauthorized: false }`
-   - Still DNS resolution fails before SSL
-
-**Status:** UNRESOLVED - Core networking issue between Vercel/Node.js and Neon's DNS.
+**Status:** Switched to Supabase - database connection works now.
 
 ---
 
-### Error 5: SSL Certificate Mismatch
+## Supabase Configuration
 
-**Symptom:** 
+### Connection String
 ```
-Hostname/IP does not match certificate's altnames: 
-Host: localhost. is not in the cert's altnames: DNS:*.c-2.ap-southeast-1.aws.neon.tech
+postgresql://postgres:1878NewtonHeath@db.rpdtgvlmkatryubvlzqu.supabase.co:5432/postgres
 ```
 
-**Root Cause:** When using IP address instead of hostname, SSL certificate validation fails because cert is issued for `*.c-2.ap-southeast-1.aws.neon.tech`, not for raw IP.
-
-**Solution Attempted:** Use hostname with SNI (Server Name Indication) support, which Neon requires.
-
-**Status:** Cannot work around - IP-based connections not possible with Neon's SSL cert setup.
-
----
-
-### Error 6: Node.js 24.x DNS Resolution Issue
-
-**Symptom:** `dns.lookup()` and pg library's internal DNS resolution both fail with EREFUSED.
-
-**Root Cause:** Node.js 24.x has stricter DNS resolution behavior. The hostname `ep-round-art-aos6mbkn.c-2.ap-southeast-1.aws.neon.tech` resolves via `dig` but not via Node.js's built-in resolver.
-
-**Workaround Attempted:** Use `dns/promises` with explicit IPv4 resolution.
-
-**Status:** Not a viable workaround - underlying network routing issue.
-
----
-
-## What Works
-
-1. **Frontend pages** (`/`, `/properties`, `/properties/[id]`) - All work perfectly with static/hardcoded data
-2. **Database connection from local machine** - Works when DNS resolves
-3. **Neon Dashboard** - Accessible, database exists
-4. **Build process** - No build errors
-
-## What Doesn't Work
-
-1. **Payload Admin** (`/admin`) - Fails at runtime due to database connection issues
-
----
-
-## Potential Solutions to Try
-
-### 1. Use Different Database Provider
-- Try Supabase instead of Neon (different DNS infrastructure)
-- Try Railway, Render, or ElephantSQL
-
-### 2. Use Neon with Serverless Driver
-- Neon recommends their Serverless Driver for serverless environments
-- See: https://neon.tech/docs/serverless/serverless-driver
-
-### 3. Configure Custom Domain
-- Point custom domain to Vercel
-- Use CNAME that Neon can resolve
-
-### 4. Contact Neon Support
-- The DNS resolution failure from Vercel's infrastructure suggests a potential infrastructure issue
+### Verified Working
+- ✅ Database connection
+- ✅ Query execution
+- ❌ Payload admin UI (React rendering error)
 
 ---
 
@@ -189,32 +140,17 @@ export default buildConfig({
 });
 ```
 
-### DATABASE_URL (Current Attempt)
+### DATABASE_URL (Current - Supabase)
 ```
-postgresql://neondb_owner:npg_mYnkzK3wTcq9@ep-round-art-aos6mbkn-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+postgresql://postgres:1878NewtonHeath@db.rpdtgvlmkatryubvlzqu.supabase.co:5432/postgres
 ```
 
 ### Vercel Environment Variables
 | Name | Value |
 |------|-------|
-| DATABASE_URL | postgresql://neondb_owner:npg_...@ep-round-art-aos6mbkn-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require |
+| DATABASE_URL | postgresql://postgres:...@db.rpdtgvlmkatryubvlzqu.supabase.co:5432/postgres |
 | PAYLOAD_SECRET | mxeN8I7Yy4zeMfOrwKYGhp6rm+cw5VHKtDBrsgOkjrc= |
 | NEXT_PUBLIC_BASE_URL | https://real-estate-app-rudhraksh-s-projects.vercel.app |
-
----
-
-## Test Commands
-
-```bash
-# Test DNS resolution
-dig @8.8.8.8 ep-round-art-aos6mbkn.c-2.ap-southeast-1.aws.neon.tech
-
-# Test raw TCP connection
-nc -zv 18.138.49.39 5432
-
-# Get Neon connection string
-npx neonctl@latest cs production --api-key "YOUR_API_KEY" --pooled=true
-```
 
 ---
 
@@ -225,5 +161,15 @@ npx neonctl@latest cs production --api-key "YOUR_API_KEY" --pooled=true
 | 2024-06-03 | Initial Payload CMS setup | Completed |
 | 2024-06-03 | Users collection missing | Fixed |
 | 2024-06-03 | Environment variables missing | Fixed |
-| 2024-06-03 | Payload schema creation | In Progress |
-| 2024-06-03 | DNS resolution failure | UNRESOLVED |
+| 2024-06-03 | Neon DNS resolution failure | Switched to Supabase |
+| 2024-06-03 | Supabase connection | Working |
+| 2024-06-04 | Payload admin UI React error | UNRESOLVED |
+
+---
+
+## Recommendations
+
+1. **Check Payload 3.x compatibility with Next.js 14 App Router** - This combination may have known issues
+2. **Try Payload 2.x** - More stable with Next.js 14
+3. **Check Payload GitHub issues** - Search for similar React rendering errors
+4. **Consider alternative CMS** - Sanity, Strapi, or Directus may be more stable
