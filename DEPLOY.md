@@ -105,6 +105,20 @@ After first deployment, Payload will automatically create the database schema.
 - Ensure your PostgreSQL provider allows external connections
 - Check Neon/Supabase dashboard for connection issues
 
+### "ENOTFOUND" DNS Resolution Errors (Neon + Vercel)
+
+**Symptom:** Runtime logs show `getaddrinfo ENOTFOUND` for Neon hostname.
+
+**Root Cause:** Node.js cannot resolve Neon's hostname in serverless environments.
+
+**Solutions to Try:**
+1. **Enable Connection Pooling in Neon** - Use the `-pooler` hostname
+2. **Switch Database Provider** - Try Supabase instead (different DNS infrastructure)
+3. **Deploy to Same Region** - Vercel us-east-1 with Neon ap-southeast-1 may have routing issues
+4. **Use Neon Serverless Driver** - Requires custom integration (see Neon's docs)
+
+**Status as of 2024-06-03:** This issue is documented in `PAYLOAD_VERCEL_TROUBLESHOOTING.md`
+
 ### "Module not found" errors
 - Try a fresh deployment: Vercel dashboard > Deployments > Create New
 - Clear cache: Vercel dashboard > Storage > PostgreSQL > Settings > Reset

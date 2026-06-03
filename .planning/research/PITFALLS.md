@@ -157,6 +157,37 @@ const cachedPoi = await payload.find({
 | Google Places | No caching | Cache in DB with TTL, batch requests |
 | Subdomain routing | Breaking on localhost | Use `lvh.me` or `/etc/hosts` mapping |
 
+---
+
+### Pitfall 6: Database DNS Resolution in Serverless Environments
+
+**What goes wrong:** Payload CMS cannot connect to Neon PostgreSQL from Vercel serverless functions.
+
+**Why it happens:** Node.js's DNS resolver fails to resolve Neon's hostname (`*.c-2.ap-southeast-1.aws.neon.tech`) in serverless environments, even though `dig` resolves it correctly.
+
+**Symptoms:**
+```
+getaddrinfo ENOTFOUND ep-round-art-aos6mbkn-pooler.c-2.ap-southeast-1.aws.neon.tech
+```
+
+**Attempted Solutions:**
+1. Connection pooling ON/OFF in Neon - Same DNS failure
+2. Using IP instead of hostname - SSL cert mismatch
+3. Different SSL modes - DNS fails before SSL
+4. Neon Serverless Driver - Not integrated with Payload CMS
+
+**Status:** UNRESOLVED
+
+**Alternative Approaches to Try:**
+- Use Supabase instead of Neon (different DNS infrastructure)
+- Use Neon's HTTP API instead of direct PostgreSQL
+- Deploy to AWS (same region as Neon: ap-southeast-1)
+- Contact Neon support about DNS resolution
+
+**Phase to address:** Phase 1 or when switching database providers
+
+---
+
 ## Performance Traps
 
 | Trap | Symptoms | Prevention | When It Breaks |

@@ -34,6 +34,18 @@ Each tenant gets their own branded site on a subdomain.
 | 6 | Storefront SSR | Pending |
 | 7 | Admin Polish | Pending |
 
+## Known Issues
+
+### Payload CMS + Neon DNS Resolution Failure
+**Issue:** Vercel serverless functions cannot resolve Neon's hostname, causing `ENOTFOUND` errors.
+
+**Documentation:** See `PAYLOAD_VERCEL_TROUBLESHOOTING.md` for full error log and attempted solutions.
+
+**Workaround Options:**
+1. Switch to Supabase (different DNS infrastructure)
+2. Deploy to same region as Neon (ap-southeast-1)
+3. Use Neon's HTTP API instead of direct PostgreSQL
+
 ## Key Principles
 
 1. **SSR for SEO** — All storefront pages server-rendered
