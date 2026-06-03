@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.0.0",
+    "cli-color": "^2.0.4",
     "@payloadcms/next": "^3.0.0",
     "@real-estate-saas/shared": "*",
     "clsx": "^2.1.0",
