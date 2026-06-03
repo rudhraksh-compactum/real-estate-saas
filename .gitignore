@@ -74,3 +74,4 @@ postgres_data/
 .tmp/
 .cache/
 .vercel
+credentials/
