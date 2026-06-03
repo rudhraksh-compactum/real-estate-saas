@@ -9,7 +9,7 @@ type PageProps = {
 export default async function AdminPage(props: PageProps) {
   return RootPage({
     ...props,
-    config: (await import('../../../../payload.config')).default,
+    config: (await import('../../../../../payload.config')).default,
     importMap,
   });
 }

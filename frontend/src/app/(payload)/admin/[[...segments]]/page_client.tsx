@@ -16,6 +16,6 @@ type ClientPageProps = {
 export const ClientPage = (props: ClientPageProps) =>
   RootPage({
     ...props,
-    config: import('../../../../payload.config').then(m => m.default),
+    config: import('../../../../../payload.config').then(m => m.default),
     importMap,
   });
