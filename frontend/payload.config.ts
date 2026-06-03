@@ -4,7 +4,6 @@ import { collections } from './payload-src/collections';
 
 export default buildConfig({
   admin: {
-    user: 'users',
     meta: {
       titleSuffix: 'Not Just A Stay - Admin',
     },
