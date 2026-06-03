@@ -10,14 +10,12 @@ export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
   admin: {
-    defaultColumns: ['name', 'email', 'role'],
-    listSearchableFields: ['name', 'email'],
+    defaultColumns: ['email', 'name', 'role'],
   },
   fields: [
     {
       name: 'name',
       type: 'text',
-      required: true,
     },
     {
       name: 'role',
@@ -29,9 +27,6 @@ export const Users: CollectionConfig = {
       ],
       defaultValue: 'admin',
       required: true,
-      access: {
-        update: () => false, // Only admins can update roles
-      },
     },
   ],
 };
