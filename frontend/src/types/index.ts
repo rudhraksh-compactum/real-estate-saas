@@ -3,11 +3,12 @@
 
 // Property types matching Payload collection
 export interface Address {
-  street: string;
+  street?: string;
+  locality?: string;
   city: string;
   state: string;
-  zipCode: string;
-  country: string;
+  zipCode?: string;
+  country?: string;
 }
 
 export interface Geolocation {
@@ -31,9 +32,9 @@ export interface Property {
   description: string;
   shortDescription?: string;
   address: Address;
-  geolocation: Geolocation;
+  geolocation?: Geolocation;
   locality?: string;
-  bhkType?: '1_bhk' | '2_bhk' | '3_bhk' | '4_plus_bhk' | 'studio' | 'villa' | 'penthouse';
+  bhkType?: '1_bhk' | '2_bhk' | '3_bhk' | '4_bhk' | '5_bhk' | '4_plus_bhk' | 'studio' | 'villa' | 'penthouse';
   propertyType?: 'apartment' | 'house' | 'villa' | 'condo' | 'farmhouse';
   furnishingStatus?: 'furnished' | 'semi_furnished' | 'unfurnished';
   bedrooms?: number;

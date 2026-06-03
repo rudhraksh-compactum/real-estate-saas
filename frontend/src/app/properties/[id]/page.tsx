@@ -55,9 +55,9 @@ export default async function PropertyPage({
       <div className="relative">
         <PropertyGallery
           images={[
-            property.featuredImage,
-            ...(property.gallery || []),
-          ]}
+            property.featuredImage?.url ? property.featuredImage : null,
+            ...(property.gallery || []).filter(img => img?.url),
+          ].filter(Boolean) as { url: string; alt?: string }[]}
           title={property.title}
         />
       </div>
@@ -72,7 +72,7 @@ export default async function PropertyPage({
                 {property.title}
               </h1>
               <p className="text-gray-600">
-                {property.address?.locality || property.address?.city}, {property.address?.state}
+                {property.locality || property.address?.city}, {property.address?.state}
               </p>
             </div>
 
@@ -136,7 +136,7 @@ export default async function PropertyPage({
               <h2 className="text-xl font-semibold mb-4">Location</h2>
               <p className="text-gray-700">
                 {property.address?.street && `${property.address.street}, `}
-                {property.address?.locality && `${property.address.locality}, `}
+                {property.locality && `${property.locality}, `}
                 {property.address?.city && property.address.city}, {property.address?.state} {property.address?.zipCode}
                 <br />
                 {property.address?.country}

@@ -94,17 +94,12 @@ export const POICache: CollectionConfig = {
   indexes: [
     // Composite unique index for cache key
     {
-      fields: {
-        property: 1,
-        poiType: 1,
-      },
+      fields: ['property', 'poiType'],
       unique: true,
     },
     // Index for TTL queries
     {
-      fields: {
-        expiresAt: 1,
-      },
+      fields: ['expiresAt'],
     },
   ],
 

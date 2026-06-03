@@ -1,5 +1,4 @@
 import { buildConfig } from 'payload';
-import { withPayload } from '@payloadcms/next/withPayload';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { collections } from './payload-src/collections';
 
@@ -10,15 +9,14 @@ export default buildConfig({
       titleSuffix: 'Not Just A Stay - Admin',
     },
   },
-  plugins: [
-    withPayload({
-      nextConfig: './next.config.mjs',
-    }),
-  ],
   db: postgresAdapter({
-    pooled: true,
-    connectionString: process.env.DATABASE_URL,
+    pool: {
+      connectionTimeoutMillis: 20000,
+      idleTimeoutMillis: 30000,
+      max: 10,
+    },
+    push: process.env.NODE_ENV === 'development',
   }),
   collections: collections,
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'fallback-secret-change-in-production',
 });
