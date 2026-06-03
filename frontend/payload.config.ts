@@ -14,6 +14,7 @@ export default buildConfig({
     migrationDir: './migrations',
     pool: {
       max: 10,
+      connectionString: process.env.DATABASE_URL,
     },
   }),
   collections: collections,
