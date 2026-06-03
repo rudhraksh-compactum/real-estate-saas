@@ -5,6 +5,7 @@ import { collections } from './payload-src/collections';
 // Payload config for Vercel deployment
 export default buildConfig({
   admin: {
+    user: 'users',
     meta: {
       titleSuffix: 'Not Just A Stay - Admin',
     },
