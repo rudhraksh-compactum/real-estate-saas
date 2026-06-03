@@ -11,10 +11,10 @@ export default buildConfig({
     },
   },
   db: postgresAdapter({
+    push: process.env.NODE_ENV === 'development',
+    migrationDir: './migrations',
     pool: {
-      connectionString: process.env.DATABASE_URL,
-      connectionTimeoutMillis: 20000,
-      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
       max: 10,
     },
   }),
