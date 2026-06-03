@@ -1,13 +1,13 @@
 import pg from 'pg';
 const { Pool } = pg;
 
+if (!process.env.DATABASE_URL) {
+  console.error('Set DATABASE_URL before running this script.');
+  process.exit(1);
+}
+
 const pool = new Pool({
-  host: 'db.rpdtgvlmkatryubvlzqu.supabase.co',
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres', 
-  password: '1878NewtonHeath',
-  ssl: { rejectUnauthorized: false },
+  connectionString: process.env.DATABASE_URL,
   max: 1,
 });
 
