@@ -13,7 +13,6 @@ export default buildConfig({
   db: postgresAdapter({
     migrationDir: './migrations',
     pool: {
-      min: 2,
       max: 10,
     },
   }),
