@@ -1,5 +1,4 @@
 import { buildConfig } from 'payload';
-import { withPayload } from '@payloadcms/next/withPayload';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { collections } from './payload/src/collections';
 
@@ -10,17 +9,16 @@ export default buildConfig({
       titleSuffix: 'Not Just A Stay - Admin',
     },
   },
-  plugins: [
-    withPayload({
-      nextConfig: './frontend/next.config.mjs',
-    }),
-  ],
   db: postgresAdapter({
-    pooled: true,
-    connectionString: process.env.DATABASE_URL,
+    push: true,
+    migrationDir: './migrations',
+    pool: {
+      max: 10,
+      connectionString: process.env.DATABASE_URL,
+    },
   }),
   collections: collections,
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'fallback-secret-change-in-production',
   types: {
     autofill: true,
   },
