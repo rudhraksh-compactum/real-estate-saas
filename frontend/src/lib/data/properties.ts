@@ -86,17 +86,28 @@ export const getFeaturedProperties = cache(async (): Promise<Property[]> => {
 
 /**
  * Fetch a single property by slug
+ * Note: Payload generates slug from title field
  */
 export const getPropertyBySlug = cache(async (slug: string): Promise<Property | null> => {
   try {
     const payload = await getPayloadInstance();
 
+    // Convert URL slug to title format (e.g., "luna-blanca" -> "Luna Blanca")
+    const titleFromSlug = slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
     const result = await payload.find({
       collection: 'properties',
       where: {
         or: [
-          { id: { equals: slug } },
+          // Match by title (Payload generates slug from title)
+          { title: { equals: titleFromSlug } },
+          // Match by generated slug
           { slug: { equals: slug } },
+          // Match by URL-safe version of title
+          { title: { like: slug.replace(/-/g, ' ') } },
         ],
       },
       limit: 1,
