@@ -27,13 +27,9 @@ export const getPublishedProperties = cache(async (options?: {
   try {
     const payload = await getPayloadInstance();
 
+    // For demo: show all properties regardless of status
     const result = await payload.find({
       collection: 'properties',
-      where: {
-        status: {
-          equals: 'published',
-        },
-      },
       limit,
       page,
       sort: '-createdAt',
@@ -66,13 +62,9 @@ export const getFeaturedProperties = cache(async (): Promise<Property[]> => {
   try {
     const payload = await getPayloadInstance();
 
+    // For demo: show all properties regardless of status
     const result = await payload.find({
       collection: 'properties',
-      where: {
-        status: {
-          equals: 'published',
-        },
-      },
       limit: 6,
       sort: '-createdAt',
     });
