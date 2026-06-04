@@ -51,6 +51,15 @@ export const PropertiesStub: CollectionConfig = {
               },
             },
             {
+              name: 'slug',
+              type: 'text',
+              required: true,
+              unique: true,
+              admin: {
+                description: 'URL-friendly identifier (e.g., luna-blanca)',
+              },
+            },
+            {
               name: 'description',
               type: 'textarea',
               admin: {
