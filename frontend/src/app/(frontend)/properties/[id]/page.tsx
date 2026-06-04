@@ -31,13 +31,8 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const { docs } = await getPublishedProperties({ limit: 100 });
-
-  return docs.map((property) => ({
-    id: property.id,
-  }));
-}
+// Dynamic route - no static generation since Payload IDs are numeric
+// Page will be server-rendered on each request
 
 export default async function PropertyPage({
   params,
