@@ -33,6 +33,7 @@ export const getPublishedProperties = cache(async (options?: {
       limit,
       page,
       sort: '-createdAt',
+      depth: 2, // Populate relationships
     });
 
     return result as unknown as PaginatedResponse<Property>;
@@ -67,6 +68,7 @@ export const getFeaturedProperties = cache(async (): Promise<Property[]> => {
       collection: 'properties',
       limit: 6,
       sort: '-createdAt',
+      depth: 2, // Populate relationships
     });
 
     return result.docs as unknown as Property[];
@@ -103,6 +105,7 @@ export const getPropertyBySlug = cache(async (slug: string): Promise<Property | 
         ],
       },
       limit: 1,
+      depth: 2, // Populate relationships
     });
 
     if (result.docs.length === 0) {
