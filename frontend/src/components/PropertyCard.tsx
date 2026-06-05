@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Wifi, Wind, Tv, Car, Star } from 'lucide-react';
 import type { Property } from '@/types';
@@ -27,6 +26,12 @@ interface PropertyCardProps {
   property: Property;
   priority?: boolean;
   className?: string;
+}
+
+// Helper to get image URL without query params for img tags
+function getImageUrl(url?: string): string {
+  if (!url) return '';
+  return url.split('?')[0]; // Remove query params like ?w=1200
 }
 
 /**
@@ -58,6 +63,7 @@ export function PropertyCard({ property, priority = false, className }: Property
   // Get first 4 amenities with icons
   const displayAmenities: string[] = amenities.slice(0, 4).filter((a: string) => AMENITY_ICONS[a]);
   const remainingCount = amenities.length - displayAmenities.length;
+  const imageUrl = getImageUrl(featuredImage?.url);
 
   return (
     <article
@@ -68,15 +74,14 @@ export function PropertyCard({ property, priority = false, className }: Property
     >
       {/* Image Section */}
       <Link href={`/properties/${slug}`} className="block">
-        <div className="relative aspect-[4/3] bg-gray-100">
-          {featuredImage?.url ? (
-            <Image
-              src={featuredImage.url}
-              alt={featuredImage.alt || title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-              priority={priority}
+        <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+          {imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageUrl}
+              alt={featuredImage?.alt || title}
+              className="w-full h-full object-cover"
+              loading={priority ? 'eager' : 'lazy'}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-gray-400">
