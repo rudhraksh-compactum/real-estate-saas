@@ -38,7 +38,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   }
 
   const allImages = [
-    property.featuredImage,
+    property.featuredImage || { url: '/placeholder.jpg', alt: property.title },
     ...(property.gallery || []),
   ];
 
@@ -47,7 +47,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
       {/* Hero Gallery */}
       <section className="relative h-[70vh]">
         <Image
-          src={allImages[0]?.url || property.featuredImage.url}
+          src={allImages[0]?.url}
           alt={property.title}
           fill
           className="object-cover"
