@@ -38,7 +38,7 @@ export function FeaturedProperties({ properties, className }: FeaturedProperties
             href="/properties"
             className="inline-flex items-center gap-2 text-charcoal hover:text-gold transition-colors group"
           >
-            <span className="text-sm tracking-wider uppercase">View All Properties</span>
+            <span className="text-sm uppercase">View All Properties</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

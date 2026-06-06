@@ -23,7 +23,7 @@
 
   h1, h2, h3, h4 {
     font-family: 'Playfair Display', Georgia, serif;
-    @apply tracking-tight;
+    letter-spacing: 0;
   }
 
   /* Custom selection */
@@ -35,15 +35,17 @@
 @layer components {
   /* Luxury Button */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 bg-charcoal text-ivory font-medium tracking-widest uppercase text-sm transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-4 bg-ivory text-charcoal font-medium uppercase text-sm transition-all duration-300;
+    letter-spacing: 0;
   }
 
   .btn-primary:hover {
-    @apply bg-charcoal-50 lift;
+    @apply bg-gold text-charcoal lift;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 border border-charcoal text-charcoal font-medium tracking-widest uppercase text-sm transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-4 border border-charcoal text-charcoal font-medium uppercase text-sm transition-all duration-300;
+    letter-spacing: 0;
   }
 
   .btn-secondary:hover {
@@ -76,7 +78,8 @@
 
   /* Label style */
   .label {
-    @apply text-xs font-medium tracking-widest uppercase text-gold;
+    @apply text-xs font-semibold uppercase text-gold;
+    letter-spacing: 0;
   }
 }
 

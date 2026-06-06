@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ChevronLeft, Users, Bed, Bath, MapPin } from 'lucide-react';
 import { getPropertyBySlug, getPublishedProperties } from '@/lib/data/properties';
 import InquiryForm from '@/components/InquiryForm';
+import { getImageUrl, isRemoteImage } from '@/lib/media';
 
 interface PropertyPageProps {
   params: Promise<{ id: string }>;
@@ -40,7 +41,10 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   const allImages = [
     property.featuredImage || { url: '/placeholder.jpg', alt: property.title },
     ...(property.gallery || []),
-  ];
+  ].map((image) => ({
+    ...image,
+    url: getImageUrl(image.url),
+  }));
 
   return (
     <div className="min-h-screen bg-ivory">
@@ -52,6 +56,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           fill
           className="object-cover"
           priority
+          unoptimized={isRemoteImage(allImages[0]?.url)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
 
@@ -61,7 +66,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           className="absolute top-8 left-8 flex items-center gap-2 text-ivory hover:text-gold transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm tracking-wider uppercase">Back to Villas</span>
+          <span className="text-sm uppercase">Back to Villas</span>
         </Link>
 
         {/* Property Title Overlay */}
@@ -89,6 +94,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                     alt={image.alt || `${property.title} - Image ${index + 1}`}
                     fill
                     className="object-cover"
+                    unoptimized={isRemoteImage(image.url)}
                   />
                 </div>
               ))}
@@ -109,7 +115,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                   <div className="flex items-center gap-3">
                     <Bed className="w-5 h-5 text-gold" />
                     <div>
-                      <p className="text-xs text-charcoal/50 uppercase tracking-wider">Bedrooms</p>
+                      <p className="text-xs text-charcoal/50 uppercase">Bedrooms</p>
                       <p className="text-lg text-charcoal font-medium">{property.bedrooms}</p>
                     </div>
                   </div>
@@ -118,7 +124,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                   <div className="flex items-center gap-3">
                     <Bath className="w-5 h-5 text-gold" />
                     <div>
-                      <p className="text-xs text-charcoal/50 uppercase tracking-wider">Bathrooms</p>
+                      <p className="text-xs text-charcoal/50 uppercase">Bathrooms</p>
                       <p className="text-lg text-charcoal font-medium">{property.bathrooms}</p>
                     </div>
                   </div>
@@ -127,7 +133,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                   <div className="flex items-center gap-3">
                     <Users className="w-5 h-5 text-gold" />
                     <div>
-                      <p className="text-xs text-charcoal/50 uppercase tracking-wider">Max Guests</p>
+                      <p className="text-xs text-charcoal/50 uppercase">Max Guests</p>
                       <p className="text-lg text-charcoal font-medium">{property.maxGuests}</p>
                     </div>
                   </div>
