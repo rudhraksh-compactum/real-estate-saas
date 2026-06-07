@@ -9,6 +9,7 @@ const heroImage = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?
 const estateImage = 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1800&q=85&auto=format&fit=crop';
 const poolImage = 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1800&q=85&auto=format&fit=crop';
 
+// Home page - Not Just A Stay
 export default async function HomePage() {
   const properties = await getFeaturedProperties();
   const leadProperty = properties[0];
