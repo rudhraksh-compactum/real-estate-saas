@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: 'Not Just A Stay - Luxury Villa Stays in North Goa',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-ivory text-charcoal antialiased">
+      <body className="min-h-screen bg-gray-50 antialiased">
         {children}
       </body>
     </html>

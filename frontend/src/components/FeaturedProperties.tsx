@@ -8,23 +8,45 @@ interface FeaturedPropertiesProps {
   className?: string;
 }
 
+/**
+ * Featured properties grid section for home page
+ * Server Component - receives pre-fetched properties
+ */
 export function FeaturedProperties({ properties, className }: FeaturedPropertiesProps) {
   if (properties.length === 0) {
-    return null;
+    return (
+      <section className={className}>
+        <div className="container mx-auto px-4">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Featured Properties</h2>
+            <p className="text-gray-500">No properties available at the moment. Check back soon!</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <section className={`section-spacing bg-white ${className || ''}`}>
+    <section className={className}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <p className="label mb-4">Our Collection</p>
-          <h2 className="text-3xl md:text-4xl text-charcoal">
-            Featured Villas
-          </h2>
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Featured Properties</h2>
+            <p className="text-gray-500 mt-1">Handpicked properties for your stay</p>
+          </div>
+          <Link
+            href="/properties"
+            className="hidden md:flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium"
+          >
+            View All
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.slice(0, 3).map((property, index) => (
+        {/* Property Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {properties.map((property, index) => (
             <PropertyCard
               key={property.id}
               property={property}
@@ -33,13 +55,14 @@ export function FeaturedProperties({ properties, className }: FeaturedProperties
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        {/* Mobile View All Link */}
+        <div className="mt-6 text-center md:hidden">
           <Link
             href="/properties"
-            className="inline-flex items-center gap-2 text-charcoal hover:text-gold transition-colors group"
+            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium"
           >
-            <span className="text-sm uppercase">View All Properties</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            View All Properties
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

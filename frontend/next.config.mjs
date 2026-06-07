@@ -10,13 +10,8 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    dangerouslyAllowSVG: false,
     remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'images.pexels.com' },
-      { protocol: 'https', hostname: 'images.ctfassets.net' },
-      { protocol: 'https', hostname: 'cdn.sanity.io' },
-      { protocol: 'https', hostname: '**.supabase.co' },
+      { protocol: 'https', hostname: '**' },
     ],
   },
 };
