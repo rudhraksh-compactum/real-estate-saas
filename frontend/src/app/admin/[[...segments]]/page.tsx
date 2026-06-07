@@ -1,6 +1,7 @@
 import { RootPage } from '@payloadcms/next/views';
 import { importMap } from '@/app/importMap';
 
+// Payload CMS admin route
 type PageProps = {
   params: Promise<{ segments: string[] }>;
   searchParams: Promise<{ [key: string]: string }>;
