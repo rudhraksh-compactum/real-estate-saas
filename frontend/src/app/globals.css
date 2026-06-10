@@ -9,6 +9,8 @@
     --color-primary-50: 239 246 255;
     --color-primary-500: 59 130 246;
     --color-primary-900: 30 64 175;
+    --font-display: Georgia, "Times New Roman", serif;
+    --font-sans: Arial, Helvetica, sans-serif;
   }
 
   body {
