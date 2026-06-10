@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { MapPin, Wifi, Wind, Tv, Car, Star } from 'lucide-react';
 import type { Property } from '@/types';
 import { cn } from '@/lib/utils';
+import { getStableImageUrl } from '@/lib/media';
 
 // Map BHK values to display labels
 const BHK_LABELS: Record<string, string> = {
@@ -29,9 +30,9 @@ interface PropertyCardProps {
 }
 
 // Helper to get image URL without query params for img tags
-function getImageUrl(url?: string): string {
+function getImageUrl(url?: string, title?: string): string {
   if (!url) return '';
-  return url.split('?')[0]; // Remove query params like ?w=1200
+  return getStableImageUrl(url, title);
 }
 
 /**
@@ -63,7 +64,7 @@ export function PropertyCard({ property, priority = false, className }: Property
   // Get first 4 amenities with icons
   const displayAmenities: string[] = amenities.slice(0, 4).filter((a: string) => AMENITY_ICONS[a]);
   const remainingCount = amenities.length - displayAmenities.length;
-  const imageUrl = getImageUrl(featuredImage?.url);
+  const imageUrl = getImageUrl(featuredImage?.url, title);
 
   return (
     <article

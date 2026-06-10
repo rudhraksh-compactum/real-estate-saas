@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getPropertyBySlug, getPublishedProperties } from '@/lib/data/properties';
 import { PropertyGallery } from '@/components/PropertyGallery';
 import InquiryForm from '@/components/InquiryForm';
+import { getStableImageUrl } from '@/lib/media';
 
 interface PropertyPageProps {
   params: Promise<{
@@ -49,8 +50,13 @@ export default async function PropertyPage({
       {/* Image Gallery */}
       <div className="relative">
         <PropertyGallery
-          images={[
-            property.featuredImage?.url ? property.featuredImage : null,
+      images={[
+            property.featuredImage?.url
+              ? {
+                  ...property.featuredImage,
+                  url: getStableImageUrl(property.featuredImage.url, property.title),
+                }
+              : null,
             ...(property.gallery || []).filter(img => img?.url),
           ].filter(Boolean) as { url: string; alt?: string }[]}
           title={property.title}
