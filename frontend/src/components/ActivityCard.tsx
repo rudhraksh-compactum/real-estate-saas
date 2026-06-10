@@ -8,90 +8,62 @@ interface ActivityCardProps {
   priority?: boolean;
 }
 
-/**
- * Activity Card Component
- * Displays a single activity with image, title, description, and key details.
- * Used in the activities list page.
- */
 export function ActivityCard({ activity, priority = false }: ActivityCardProps) {
   const { slug, title, shortDescription, duration, groupSize, price, currency = 'INR', featuredImage } = activity;
-
-  // Format price display
-  const formattedPrice = `${currency} ${price.toLocaleString()} / person`;
-
-  // Format group size
-  const groupSizeText = groupSize
-    ? groupSize.minGuests && groupSize.maxGuests
-      ? `${groupSize.minGuests}-${groupSize.maxGuests} guests`
-      : groupSize.maxGuests
-        ? `Up to ${groupSize.maxGuests} guests`
-        : groupSize.minGuests
-          ? `Min ${groupSize.minGuests} guests`
-          : null
-    : null;
+  const href = `/activities/${slug || activity.id}`;
+  const formattedPrice = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0,
+  }).format(price);
+  const groupSizeText = groupSize?.minGuests && groupSize?.maxGuests
+    ? `${groupSize.minGuests}-${groupSize.maxGuests} guests`
+    : groupSize?.maxGuests
+      ? `Up to ${groupSize.maxGuests} guests`
+      : null;
 
   return (
-    <article className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white">
-      {/* Featured Image */}
+    <article className="group bg-white">
       {featuredImage?.url && (
-        <Link href={`/activities/${slug || activity.id}`} className="block relative aspect-[4/3]">
+        <Link href={href} className="relative block aspect-square overflow-hidden bg-neutral-200">
           <Image
             src={featuredImage.url}
             alt={featuredImage.alt || title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority={priority}
           />
         </Link>
       )}
 
-      {/* Content */}
-      <div className="p-4 space-y-3">
-        {/* Title */}
-        <Link href={`/activities/${slug || activity.id}`}>
-          <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-1">
+      <div className="p-6">
+        <Link href={href} className="transition-colors hover:text-[#A1834C]">
+          <h3 className="text-2xl font-medium leading-tight tracking-tight text-[#141414]">
             {title}
           </h3>
         </Link>
 
-        {/* Short Description */}
         {shortDescription && (
-          <p className="text-sm text-gray-600 line-clamp-2">
+          <p className="mt-4 line-clamp-2 text-sm leading-6 text-[#6f6f6f]">
             {shortDescription}
           </p>
         )}
 
-        {/* Details Row */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-          {/* Duration */}
+        <div className="mt-5 flex flex-wrap gap-4 border-t border-black/10 pt-4 text-[11px] font-semibold text-[#141414]">
           {duration && (
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
-              <span>{duration}</span>
-            </div>
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-[#A5A5A5]" />
+              {duration}
+            </span>
           )}
-
-          {/* Group Size */}
           {groupSizeText && (
-            <div className="flex items-center gap-1.5">
-              <Users className="w-4 h-4" />
-              <span>{groupSizeText}</span>
-            </div>
+            <span className="inline-flex items-center gap-1.5">
+              <Users className="h-3.5 w-3.5 text-[#A5A5A5]" />
+              {groupSizeText}
+            </span>
           )}
-        </div>
-
-        {/* Price & CTA */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-          <span className="text-lg font-semibold text-gray-900">
-            {formattedPrice}
-          </span>
-          <Link
-            href={`/activities/${slug || activity.id}`}
-            className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
-          >
-            View Details
-          </Link>
+          <span>{formattedPrice} / person</span>
         </div>
       </div>
     </article>

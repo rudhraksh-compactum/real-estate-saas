@@ -1,10 +1,8 @@
-import { Suspense } from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowLeft, CalendarDays, MapPin, Sparkles } from 'lucide-react';
 import { getPublishedProperties } from '@/lib/data/properties';
-import { FilterSidebar } from '@/components/search/FilterSidebar';
-import { ActiveFilters } from '@/components/search/ActiveFilters';
 import { PropertyCard } from '@/components/PropertyCard';
-import { PropertyCardSkeleton } from '@/components/skeletons/PropertyCardSkeleton';
 
 interface PropertiesPageProps {
   searchParams: Promise<{
@@ -14,144 +12,140 @@ interface PropertiesPageProps {
   }>;
 }
 
-// Dynamic metadata for SEO
-export async function generateMetadata({
-}: PropertiesPageProps): Promise<Metadata> {
+export async function generateMetadata({}: PropertiesPageProps): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://notjustastay.com';
   return {
-    title: 'Browse Properties | Not Just A Stay',
+    title: 'Private Villas in North Goa | Not Just A Stay',
     description:
-      'Find your perfect short-let property. Filter by BHK type, amenities, budget, and more.',
+      'Browse hosted private villas across Assagao, Anjuna and Vagator with pools, local experiences and direct stay requests.',
     openGraph: {
-      title: 'Browse Properties | Not Just A Stay',
+      title: 'Private Villas in North Goa | Not Just A Stay',
       type: 'website',
       url: `${baseUrl}/properties`,
     },
   };
 }
 
-// Properties list page with FilterSidebar and property grid
 export default async function PropertiesPage({
   searchParams,
 }: PropertiesPageProps) {
   const { location, guests, page } = await searchParams;
-
-  // Fetch published properties
-  const result = await getPublishedProperties({ limit: 20, page: Number(page) ?? 1 });
+  const result = await getPublishedProperties({ limit: 20, page: Number(page) || 1 });
   const properties = result.docs;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Browse Properties</h1>
-        <p className="text-gray-500 mt-1">
-          {result.totalDocs} properties found
-          {location && ` in ${location}`}
-        </p>
-      </div>
+    <main className="min-h-screen bg-[#F8F8F8] text-[#141414]">
+      <header className="border-b border-black/10 px-5 py-5 md:px-10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
+          <Link href="/" className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase text-[#6f6f6f] transition-colors hover:text-[#141414]">
+            <ArrowLeft className="h-4 w-4" />
+            Home
+          </Link>
+          <Link href="/" className="text-center text-2xl font-semibold leading-none tracking-tight">
+            Not Just<br />A Stay
+          </Link>
+          <a href="#collection" className="bg-[#141414] px-5 py-3 text-[12px] font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#A1834C]">
+            Villas
+          </a>
+        </div>
+      </header>
 
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Filter Sidebar - wrapped in Suspense for client component */}
-        <aside className="lg:w-64 flex-shrink-0">
-          <Suspense fallback={<FilterSidebarSkeleton />}>
-            <FilterSidebar />
-          </Suspense>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1">
-          {/* Active Filters */}
-          <div className="mb-4">
-            <ActiveFilters />
-          </div>
-
-          {/* Property Grid */}
-          {properties.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {properties.map((property, index) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  priority={index < 3}
-                />
-              ))}
+      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-12 md:px-10 md:py-20">
+        <div className="md:col-span-7">
+          <p className="mb-5 text-[12px] font-semibold uppercase text-[#A1834C]">Hosted private villas</p>
+          <h1 className="max-w-4xl text-5xl font-medium leading-[1.02] tracking-tight md:text-7xl">
+            Find the North Goa stay your group can settle into.
+          </h1>
+        </div>
+        <div className="space-y-6 md:col-span-4 md:col-start-9 md:pt-14">
+          <p className="text-lg leading-8 text-[#6f6f6f]">
+            Browse a compact collection of private villas with hosted arrival, pools, flexible stays and curated local experiences.
+          </p>
+          <div className="grid grid-cols-3 border-y border-black/10 py-5 text-sm">
+            <div>
+              <p className="text-2xl font-medium">{result.totalDocs}</p>
+              <p className="mt-1 text-[#8b8b8b]">Villas</p>
             </div>
-          ) : (
-            <EmptyState />
-          )}
+            <div>
+              <p className="text-2xl font-medium">3</p>
+              <p className="mt-1 text-[#8b8b8b]">Locations</p>
+            </div>
+            <div>
+              <p className="text-2xl font-medium">24 hr</p>
+              <p className="mt-1 text-[#8b8b8b]">Host care</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          {/* Pagination */}
-          {result.totalPages > 1 && (
-            <Pagination currentPage={result.page} totalPages={result.totalPages} />
-          )}
-        </main>
-      </div>
-    </div>
+      <section className="border-y border-black/10 bg-white px-5 py-4 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 text-sm text-[#6f6f6f]">
+          <span className="inline-flex items-center gap-2 bg-[#F8F8F8] px-4 py-2">
+            <MapPin className="h-4 w-4 text-[#A1834C]" />
+            {location || 'North Goa'}
+          </span>
+          <span className="inline-flex items-center gap-2 bg-[#F8F8F8] px-4 py-2">
+            <Sparkles className="h-4 w-4 text-[#A1834C]" />
+            Pool villas
+          </span>
+          <span className="inline-flex items-center gap-2 bg-[#F8F8F8] px-4 py-2">
+            <CalendarDays className="h-4 w-4 text-[#A1834C]" />
+            {guests ? `${guests} guests` : 'Flexible dates'}
+          </span>
+        </div>
+      </section>
+
+      <section id="collection" className="mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-16">
+        <div className="mb-8 grid gap-5 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-6">
+            <p className="text-[12px] font-semibold uppercase text-[#A1834C]">Collection</p>
+            <h2 className="mt-2 text-3xl font-medium tracking-tight md:text-5xl">
+              Villas ready for direct stay requests.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#6f6f6f] md:col-span-4 md:col-start-9">
+            Each listing keeps the practical details close to the image: location, nightly rate, guest capacity and the fastest path to enquire.
+          </p>
+        </div>
+
+        {properties.length > 0 ? (
+          <div className="grid gap-8 md:grid-cols-3">
+            {properties.map((property, index) => (
+              <PropertyCard
+                key={property.id}
+                property={property}
+                priority={index < 3}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white p-12 text-center">
+            <h3 className="text-2xl font-medium tracking-tight">No villas found</h3>
+            <p className="mt-3 text-[#6f6f6f]">Try a different location or speak with the host team.</p>
+          </div>
+        )}
+
+        {result.totalPages > 1 && (
+          <Pagination currentPage={result.page} totalPages={result.totalPages} />
+        )}
+      </section>
+    </main>
   );
 }
 
-// Empty state component
-function EmptyState() {
-  return (
-    <div className="text-center py-12">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-        <svg
-          className="w-8 h-8 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-          />
-        </svg>
-      </div>
-      <h3 className="text-lg font-medium text-gray-900 mb-1">No properties found</h3>
-      <p className="text-gray-500">
-        Try adjusting your filters or search criteria.
-      </p>
-    </div>
-  );
-}
-
-// Filter sidebar skeleton during loading
-function FilterSidebarSkeleton() {
-  return (
-    <div className="p-4 bg-white rounded-lg shadow-sm space-y-4">
-      <div className="h-6 bg-gray-200 rounded animate-pulse w-16" />
-      <div className="space-y-3">
-        <div className="h-4 bg-gray-200 rounded animate-pulse" />
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4" />
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2" />
-      </div>
-    </div>
-  );
-}
-
-// Simple pagination component
 function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
   return (
-    <nav className="mt-8 flex justify-center gap-2" aria-label="Pagination">
+    <nav className="mt-10 flex justify-center gap-3" aria-label="Pagination">
       {currentPage > 1 && (
-        <a
-          href={`?page=${currentPage - 1}`}
-          className="px-4 py-2 border rounded-md hover:bg-gray-50"
-        >
+        <a href={`?page=${currentPage - 1}`} className="border border-black/10 px-5 py-3 text-sm font-semibold uppercase hover:bg-white">
           Previous
         </a>
       )}
-      <span className="px-4 py-2">
+      <span className="px-5 py-3 text-sm text-[#6f6f6f]">
         Page {currentPage} of {totalPages}
       </span>
       {currentPage < totalPages && (
-        <a
-          href={`?page=${currentPage + 1}`}
-          className="px-4 py-2 border rounded-md hover:bg-gray-50"
-        >
+        <a href={`?page=${currentPage + 1}`} className="border border-black/10 px-5 py-3 text-sm font-semibold uppercase hover:bg-white">
           Next
         </a>
       )}

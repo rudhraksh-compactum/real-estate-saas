@@ -4,39 +4,39 @@
  */
 export default function Loading() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumbs skeleton */}
-      <div className="flex items-center gap-2 mb-6">
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-16" />
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-4" />
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-24" />
-      </div>
+    <main className="min-h-screen bg-[#F8F8F8] px-5 py-14 md:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 grid gap-8 md:grid-cols-12">
+          <div className="space-y-5 md:col-span-7">
+            <div className="h-3 w-32 animate-pulse bg-black/10" />
+            <div className="h-16 w-full max-w-2xl animate-pulse bg-black/10" />
+            <div className="h-16 w-3/4 animate-pulse bg-black/10" />
+          </div>
+          <div className="space-y-3 md:col-span-4 md:col-start-9 md:pt-14">
+            <div className="h-4 w-full animate-pulse bg-black/10" />
+            <div className="h-4 w-4/5 animate-pulse bg-black/10" />
+            <div className="h-4 w-2/3 animate-pulse bg-black/10" />
+          </div>
+        </div>
 
-      {/* Page Header skeleton */}
-      <div className="mb-8 space-y-3">
-        <div className="h-8 bg-gray-200 rounded animate-pulse w-64" />
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-96" />
-      </div>
-
-      {/* Grid skeleton */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-            <div className="aspect-[4/3] bg-gray-200 animate-pulse" />
-            <div className="p-4 space-y-3">
-              <div className="h-6 bg-gray-200 rounded w-3/4 animate-pulse" />
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-full animate-pulse" />
-                <div className="h-4 bg-gray-200 rounded w-2/3 animate-pulse" />
-              </div>
-              <div className="flex gap-4 pt-2">
-                <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
-                <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+        <div className="grid gap-8 md:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="bg-white">
+              <div className="aspect-square animate-pulse bg-black/10" />
+              <div className="space-y-4 p-6">
+                <div className="h-7 w-3/4 animate-pulse bg-black/10" />
+                <div className="h-4 w-full animate-pulse bg-black/10" />
+                <div className="h-4 w-2/3 animate-pulse bg-black/10" />
+                <div className="h-px bg-black/10" />
+                <div className="flex gap-4">
+                  <div className="h-4 w-20 animate-pulse bg-black/10" />
+                  <div className="h-4 w-24 animate-pulse bg-black/10" />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

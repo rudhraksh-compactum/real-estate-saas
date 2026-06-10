@@ -72,9 +72,8 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
 
   return (
     <div className="space-y-4">
-      {/* Main Image Display */}
       <div
-        className="relative aspect-[16/9] cursor-pointer group rounded-lg overflow-hidden bg-gray-100"
+        className="group relative aspect-[16/9] cursor-pointer overflow-hidden bg-neutral-200"
         onClick={() => setIsOpen(true)}
       >
         {currentImage.url && (
@@ -83,12 +82,11 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             alt={currentImage.alt || title}
             fill
             priority
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
           />
         )}
 
-        {/* Navigation Arrows */}
         {hasMultipleImages && (
           <>
             <button
@@ -96,48 +94,45 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                 e.stopPropagation();
                 goToPrevious();
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 text-[#141414] opacity-0 shadow-lg backdrop-blur-md transition-opacity hover:bg-white group-hover:opacity-100"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-6 h-6 text-gray-700" />
+              <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 goToNext();
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 text-[#141414] opacity-0 shadow-lg backdrop-blur-md transition-opacity hover:bg-white group-hover:opacity-100"
               aria-label="Next image"
             >
-              <ChevronRight className="w-6 h-6 text-gray-700" />
+              <ChevronRight className="h-5 w-5" />
             </button>
           </>
         )}
 
-        {/* Image Counter Badge */}
         {hasMultipleImages && (
-          <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">
+          <div className="absolute bottom-4 right-4 bg-black/70 px-3 py-2 text-xs font-semibold uppercase text-white">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
 
-        {/* Expand Icon */}
-        <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-          <X className="w-4 h-4 rotate-45" />
-          <span>Click to expand</span>
+        <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-black/70 px-3 py-2 text-xs font-semibold uppercase text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <X className="h-4 w-4 rotate-45" />
+          <span>Expand</span>
         </div>
       </div>
 
-      {/* Thumbnails Row */}
       {hasMultipleImages && (
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {validImages.map((image, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`relative flex-shrink-0 w-20 h-15 rounded-md overflow-hidden transition-all ${
+              className={`relative h-16 w-24 flex-shrink-0 overflow-hidden transition-all ${
                 index === currentIndex
-                  ? 'ring-2 ring-blue-500 ring-offset-2'
+                  ? 'ring-2 ring-[#141414] ring-offset-2'
                   : 'opacity-70 hover:opacity-100'
               }`}
               aria-label={`View image ${index + 1}`}
@@ -156,7 +151,6 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
         </div>
       )}
 
-      {/* Lightbox Modal */}
       {isOpen && (
         <div
           className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
@@ -165,7 +159,6 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
           aria-modal="true"
           aria-label="Image gallery lightbox"
         >
-          {/* Close Button */}
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-4 right-4 p-3 text-white hover:text-gray-300 transition-colors z-10"
@@ -174,7 +167,6 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             <X className="w-8 h-8" />
           </button>
 
-          {/* Previous Button */}
           {hasMultipleImages && (
             <button
               onClick={(e) => {
@@ -188,7 +180,6 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             </button>
           )}
 
-          {/* Large Image */}
           <div
             className="relative w-full max-w-6xl aspect-video mx-4"
             onClick={(e) => e.stopPropagation()}
@@ -205,7 +196,6 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             )}
           </div>
 
-          {/* Next Button */}
           {hasMultipleImages && (
             <button
               onClick={(e) => {
@@ -219,9 +209,8 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             </button>
           )}
 
-          {/* Image Counter */}
           {hasMultipleImages && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 text-white text-sm rounded-full">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 px-4 py-2 text-sm text-white">
               {currentIndex + 1} / {validImages.length}
             </div>
           )}

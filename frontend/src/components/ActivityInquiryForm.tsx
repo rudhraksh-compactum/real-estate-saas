@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Mail, Phone, Send, User } from 'lucide-react';
 import { submitActivityInquiry } from '@/lib/actions';
 import type { ActivityInquiryFormData } from '@/lib/schemas';
 
@@ -15,13 +16,11 @@ interface ActivityInquiryFormProps {
  * Submits lead to Payload CMS via Server Action.
  */
 export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInquiryFormProps) {
-  // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
-  // UI state
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +45,6 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
 
     if (result.success) {
       setSuccess('Thank you for your inquiry! We will get back to you soon.');
-      // Reset form
       setName('');
       setEmail('');
       setPhone('');
@@ -59,18 +57,17 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+    <div>
       {activityTitle && (
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Inquire about this Experience
+        <h3 className="mb-4 text-lg font-medium tracking-tight text-[#141414]">
+          Request this experience
         </h3>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Name */}
         <div>
-          <label htmlFor="activity-name" className="block text-sm font-medium text-gray-700 mb-1">
-            Name <span className="text-red-500">*</span>
+          <label htmlFor="activity-name" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <User className="h-3.5 w-3.5" /> Name
           </label>
           <input
             type="text"
@@ -79,7 +76,7 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
             onChange={(e) => setName(e.target.value)}
             required
             minLength={2}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="Your full name"
           />
           {fieldErrors.name && (
@@ -87,10 +84,9 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
           )}
         </div>
 
-        {/* Email */}
         <div>
-          <label htmlFor="activity-email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="activity-email" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <Mail className="h-3.5 w-3.5" /> Email
           </label>
           <input
             type="email"
@@ -98,7 +94,7 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="your.email@example.com"
           />
           {fieldErrors.email && (
@@ -106,17 +102,16 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
           )}
         </div>
 
-        {/* Phone */}
         <div>
-          <label htmlFor="activity-phone" className="block text-sm font-medium text-gray-700 mb-1">
-            Phone <span className="text-gray-400">(optional)</span>
+          <label htmlFor="activity-phone" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <Phone className="h-3.5 w-3.5" /> Phone
           </label>
           <input
             type="tel"
             id="activity-phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="+91 98765 43210"
           />
           {fieldErrors.phone && (
@@ -124,10 +119,9 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
           )}
         </div>
 
-        {/* Message */}
         <div>
-          <label htmlFor="activity-message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message <span className="text-red-500">*</span>
+          <label htmlFor="activity-message" className="block text-xs font-medium uppercase text-[#6f6f6f]">
+            Message
           </label>
           <textarea
             id="activity-message"
@@ -136,19 +130,18 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
             required
             minLength={10}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Tell us about your plans and any questions you have..."
+            className="mt-1 w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
+            placeholder="Tell us when you would like to arrange this..."
           />
           {fieldErrors.message && (
             <p className="mt-1 text-sm text-red-600">{fieldErrors.message[0]}</p>
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex w-full items-center justify-center gap-2 bg-[#141414] px-5 py-4 text-[13px] font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#A1834C] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -159,20 +152,21 @@ export function ActivityInquiryForm({ activityId, activityTitle }: ActivityInqui
               Sending...
             </span>
           ) : (
-            'Send Inquiry'
+            <>
+              <Send className="h-4 w-4" />
+              Request experience
+            </>
           )}
         </button>
 
-        {/* Success Message */}
         {success && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+          <div className="border border-green-200 bg-green-50 p-4">
             <p className="text-sm text-green-800">{success}</p>
           </div>
         )}
 
-        {/* Error Message */}
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+          <div className="border border-red-200 bg-red-50 p-4">
             <p className="text-sm text-red-800">{error}</p>
           </div>
         )}

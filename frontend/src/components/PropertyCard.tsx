@@ -1,27 +1,8 @@
 import Link from 'next/link';
-import { MapPin, Wifi, Wind, Tv, Car, Star } from 'lucide-react';
+import { Bath, Bed, MapPin, Maximize2, Users } from 'lucide-react';
 import type { Property } from '@/types';
 import { cn } from '@/lib/utils';
 import { getStableImageUrl } from '@/lib/media';
-
-// Map BHK values to display labels
-const BHK_LABELS: Record<string, string> = {
-  '1_bhk': '1 BHK',
-  '2_bhk': '2 BHK',
-  '3_bhk': '3 BHK',
-  '4_plus_bhk': '4+ BHK',
-  studio: 'Studio',
-  villa: 'Villa',
-  penthouse: 'Penthouse',
-};
-
-// Amenity icons mapping
-const AMENITY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  wifi: Wifi,
-  ac: Wind,
-  tv: Tv,
-  parking: Car,
-};
 
 interface PropertyCardProps {
   property: Property;
@@ -29,120 +10,92 @@ interface PropertyCardProps {
   className?: string;
 }
 
-// Helper to get image URL without query params for img tags
-function getImageUrl(url?: string, title?: string): string {
-  if (!url) return '';
-  return getStableImageUrl(url, title);
-}
-
-/**
- * Rich property card component for listings
- * Server Component - fetches data in parent
- */
-export function PropertyCard({ property, priority = false, className }: PropertyCardProps) {
-  const {
-    slug,
-    title,
-    shortDescription,
-    address,
-    locality,
-    bhkType,
-    nightlyPrice,
-    currency = 'INR',
-    amenities = [],
-    featuredImage,
-  } = property;
-
-  const city = address?.city ?? 'Unknown City';
-  const bhkLabel = bhkType ? BHK_LABELS[bhkType] || bhkType : null;
-  const formattedPrice = new Intl.NumberFormat('en-IN', {
+function formatPrice(value: number, currency = 'INR') {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,
-  }).format(nightlyPrice);
+  }).format(value);
+}
 
-  // Get first 4 amenities with icons
-  const displayAmenities: string[] = amenities.slice(0, 4).filter((a: string) => AMENITY_ICONS[a]);
-  const remainingCount = amenities.length - displayAmenities.length;
-  const imageUrl = getImageUrl(featuredImage?.url, title);
+function hrefFor(property: Property) {
+  return `/properties/${property.slug || property.id}`;
+}
+
+function Stat({
+  icon: Icon,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  value?: string | number;
+}) {
+  if (!value) return null;
 
   return (
-    <article
-      className={cn(
-        'border rounded-lg overflow-hidden bg-white hover:shadow-lg transition-shadow',
-        className
-      )}
-    >
-      {/* Image Section */}
-      <Link href={`/properties/${slug}`} className="block">
-        <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
-          {imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={imageUrl}
-              alt={featuredImage?.alt || title}
-              className="w-full h-full object-cover"
-              loading={priority ? 'eager' : 'lazy'}
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-              <span>No image available</span>
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#141414]">
+      <Icon className="h-3.5 w-3.5 text-[#A5A5A5]" />
+      {value}
+    </span>
+  );
+}
+
+export function PropertyCard({ property, priority = false, className }: PropertyCardProps) {
+  const imageUrl = getStableImageUrl(property.featuredImage?.url, property.title);
+  const location = [property.locality || property.address?.locality, property.address?.city]
+    .filter(Boolean)
+    .join(', ');
+
+  return (
+    <article className={cn('group bg-white', className)}>
+      <Link href={hrefFor(property)} className="block">
+        <div className="relative aspect-square overflow-hidden bg-neutral-200">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrl}
+            alt={property.featuredImage?.alt || property.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading={priority ? 'eager' : 'lazy'}
+          />
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/55 to-transparent p-5 text-white">
+            <div>
+              <p className="text-[11px] font-semibold uppercase text-white/70">From</p>
+              <p className="text-2xl font-medium">{formatPrice(property.nightlyPrice, property.currency)}</p>
             </div>
-          )}
-          {/* BHK Badge */}
-          {bhkLabel && (
-            <span className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-md text-sm font-medium text-gray-900">
-              {bhkLabel}
+            <span className="flex h-10 w-10 items-center justify-center bg-white/90 text-[#141414] backdrop-blur-md">
+              <Maximize2 className="h-4 w-4" />
             </span>
-          )}
-          {/* Rating Badge */}
-          <span className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-md text-sm">
-            <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-            <span className="font-medium">4.5</span>
-          </span>
+          </div>
         </div>
       </Link>
 
-      {/* Content Section */}
-      <div className="p-4">
-        {/* Title */}
-        <Link href={`/properties/${slug}`} className="hover:text-blue-600">
-          <h3 className="font-semibold text-gray-900 line-clamp-1">{title}</h3>
-        </Link>
-
-        {/* Location */}
-        <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
-          <MapPin className="w-4 h-4" />
-          <span className="line-clamp-1">
-            {locality ? `${locality}, ` : ''}{city}
-          </span>
-        </div>
-
-        {/* Short Description */}
-        {shortDescription && (
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2">{shortDescription}</p>
-        )}
-
-        {/* Price */}
-        <div className="mt-3 flex items-baseline gap-1">
-          <span className="text-lg font-bold text-gray-900">{formattedPrice}</span>
-          <span className="text-sm text-gray-500">/ night</span>
-        </div>
-
-        {/* Amenities */}
-        {displayAmenities.length > 0 && (
-          <div className="mt-3 flex items-center gap-3">
-            {displayAmenities.map((amenity: string) => {
-              const Icon = AMENITY_ICONS[amenity];
-              return Icon ? (
-                <Icon key={amenity} className="w-4 h-4 text-gray-400" />
-              ) : null;
-            })}
-            {remainingCount > 0 && (
-              <span className="text-xs text-gray-400">+{remainingCount} more</span>
+      <div className="p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <Link href={hrefFor(property)} className="transition-colors hover:text-[#A1834C]">
+              <h3 className="text-2xl font-medium leading-tight tracking-tight text-[#141414]">
+                {property.title}
+              </h3>
+            </Link>
+            {location && (
+              <p className="mt-2 flex items-center gap-1.5 text-sm text-[#6f6f6f]">
+                <MapPin className="h-4 w-4 text-[#A1834C]" />
+                {location}
+              </p>
             )}
           </div>
+        </div>
+
+        {property.shortDescription && (
+          <p className="mt-4 line-clamp-2 text-sm leading-6 text-[#6f6f6f]">
+            {property.shortDescription}
+          </p>
         )}
+
+        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-black/10 pt-4">
+          <Stat icon={Bed} value={property.bedrooms ? `${property.bedrooms} beds` : undefined} />
+          <Stat icon={Bath} value={property.bathrooms ? `${property.bathrooms} baths` : undefined} />
+          <Stat icon={Users} value={property.maxGuests ? `${property.maxGuests} guests` : undefined} />
+        </div>
       </div>
     </article>
   );

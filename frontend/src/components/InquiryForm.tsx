@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { CalendarDays, Mail, Phone, Send, User, Users } from 'lucide-react';
 import { submitInquiry } from '@/lib/actions';
 import type { InquiryFormData } from '@/lib/schemas';
 
 export interface InquiryFormProps {
   propertyId: string;
   propertyTitle?: string;
+  nightlyPrice?: number;
 }
 
 /**
@@ -14,14 +16,15 @@ export interface InquiryFormProps {
  * Captures name, email, phone, and message from potential guests.
  * Submits lead to Payload CMS via Server Action.
  */
-export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormProps) {
-  // Form state
+export default function InquiryForm({ propertyId, propertyTitle, nightlyPrice }: InquiryFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [guests, setGuests] = useState('2');
 
-  // UI state
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -34,11 +37,19 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
     setFieldErrors({});
     setSuccess(null);
 
+    const stayDetails = [
+      checkIn ? `Check-in: ${checkIn}` : null,
+      checkOut ? `Check-out: ${checkOut}` : null,
+      guests ? `Guests: ${guests}` : null,
+    ].filter(Boolean);
+
     const result = await submitInquiry({
       name,
       email,
       phone,
-      message,
+      message: stayDetails.length > 0
+        ? `${message}\n\nStay details:\n${stayDetails.join('\n')}`
+        : message,
       propertyReference: propertyId,
     } as InquiryFormData);
 
@@ -51,6 +62,9 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
       setEmail('');
       setPhone('');
       setMessage('');
+      setCheckIn('');
+      setCheckOut('');
+      setGuests('2');
     } else if (result.fieldErrors) {
       setFieldErrors(result.fieldErrors);
     } else {
@@ -59,18 +73,64 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-      {propertyTitle && (
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Inquire about {propertyTitle}
+    <div className="bg-white p-6 shadow-[0_24px_80px_rgba(20,20,20,0.08)] ring-1 ring-black/5">
+      <div className="mb-6 border-b border-black/10 pb-5">
+        <p className="text-[11px] font-semibold uppercase text-[#A1834C]">Private request</p>
+        <h3 className="mt-2 text-2xl font-medium tracking-tight text-[#141414]">
+          {propertyTitle ? `Request ${propertyTitle}` : 'Request this stay'}
         </h3>
-      )}
+        {nightlyPrice && (
+          <p className="mt-2 text-sm text-[#6f6f6f]">
+            From <span className="font-semibold text-[#141414]">Rs {nightlyPrice.toLocaleString('en-IN')}</span> per night
+          </p>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Name */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="checkIn" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+              <CalendarDays className="h-3.5 w-3.5" /> Check-in
+            </label>
+            <input
+              type="date"
+              id="checkIn"
+              value={checkIn}
+              onChange={(e) => setCheckIn(e.target.value)}
+              className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
+            />
+          </div>
+          <div>
+            <label htmlFor="checkOut" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+              <CalendarDays className="h-3.5 w-3.5" /> Check-out
+            </label>
+            <input
+              type="date"
+              id="checkOut"
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
+              className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
+            />
+          </div>
+        </div>
+
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            Name <span className="text-red-500">*</span>
+          <label htmlFor="guests" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <Users className="h-3.5 w-3.5" /> Guests
+          </label>
+          <input
+            type="number"
+            id="guests"
+            min="1"
+            value={guests}
+            onChange={(e) => setGuests(e.target.value)}
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="name" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <User className="h-3.5 w-3.5" /> Name
           </label>
           <input
             type="text"
@@ -79,7 +139,7 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
             onChange={(e) => setName(e.target.value)}
             required
             minLength={2}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="Your full name"
           />
           {fieldErrors.name && (
@@ -87,10 +147,9 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
           )}
         </div>
 
-        {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="email" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <Mail className="h-3.5 w-3.5" /> Email
           </label>
           <input
             type="email"
@@ -98,7 +157,7 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="your.email@example.com"
           />
           {fieldErrors.email && (
@@ -106,17 +165,16 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
           )}
         </div>
 
-        {/* Phone */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-            Phone <span className="text-gray-400">(optional)</span>
+          <label htmlFor="phone" className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase text-[#6f6f6f]">
+            <Phone className="h-3.5 w-3.5" /> Phone
           </label>
           <input
             type="tel"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
             placeholder="+91 98765 43210"
           />
           {fieldErrors.phone && (
@@ -124,10 +182,9 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
           )}
         </div>
 
-        {/* Message */}
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message <span className="text-red-500">*</span>
+          <label htmlFor="message" className="block text-xs font-medium uppercase text-[#6f6f6f]">
+            Message
           </label>
           <textarea
             id="message"
@@ -136,19 +193,18 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
             required
             minLength={10}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Tell us about your plans and any questions you have..."
+            className="mt-1 w-full border border-black/10 bg-[#F8F8F8] px-3 py-3 text-sm text-[#141414] outline-none transition-colors focus:border-[#141414]"
+            placeholder="Tell us what kind of stay you are planning..."
           />
           {fieldErrors.message && (
             <p className="mt-1 text-sm text-red-600">{fieldErrors.message[0]}</p>
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex w-full items-center justify-center gap-2 bg-[#141414] px-5 py-4 text-[13px] font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#A1834C] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -159,20 +215,21 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
               Sending...
             </span>
           ) : (
-            'Send Inquiry'
+            <>
+              <Send className="h-4 w-4" />
+              Request stay
+            </>
           )}
         </button>
 
-        {/* Success Message */}
         {success && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+          <div className="border border-green-200 bg-green-50 p-4">
             <p className="text-sm text-green-800">{success}</p>
           </div>
         )}
 
-        {/* Error Message */}
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+          <div className="border border-red-200 bg-red-50 p-4">
             <p className="text-sm text-red-800">{error}</p>
           </div>
         )}
