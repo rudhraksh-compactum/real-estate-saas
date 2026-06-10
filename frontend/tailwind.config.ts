@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
+      },
       colors: {
         // Tenant branding colors can be configured per-tenant
         primary: {

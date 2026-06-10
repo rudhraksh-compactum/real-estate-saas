@@ -1,5 +1,14 @@
 import type { Metadata } from 'next';
+import { Lato } from 'next/font/google';
+import { PageTransition } from '@/components/PageTransition';
+import { SiteHeader } from '@/components/SiteHeader';
 import '../globals.css';
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700', '900'],
+  variable: '--font-lato',
+});
 
 export const metadata: Metadata = {
   title: 'Not Just A Stay - Luxury Villa Stays in North Goa',
@@ -17,8 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-white antialiased">
+    <html lang="en" className={lato.variable}>
+      <body className="min-h-screen bg-[#F8F8F8] font-lato text-[#141414] antialiased">
+        <SiteHeader />
+        <PageTransition />
         {children}
       </body>
     </html>

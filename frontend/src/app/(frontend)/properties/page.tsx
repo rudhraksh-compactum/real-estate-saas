@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowLeft, CalendarDays, MapPin, Sparkles } from 'lucide-react';
+import { CalendarDays, MapPin, Sparkles } from 'lucide-react';
 import { getPublishedProperties } from '@/lib/data/properties';
 import { PropertyCard } from '@/components/PropertyCard';
+import { Reveal } from '@/components/Reveal';
 
 interface PropertiesPageProps {
   searchParams: Promise<{
@@ -35,29 +35,14 @@ export default async function PropertiesPage({
 
   return (
     <main className="min-h-screen bg-[#F8F8F8] text-[#141414]">
-      <header className="border-b border-black/10 px-5 py-5 md:px-10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-          <Link href="/" className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase text-[#6f6f6f] transition-colors hover:text-[#141414]">
-            <ArrowLeft className="h-4 w-4" />
-            Home
-          </Link>
-          <Link href="/" className="text-center text-2xl font-semibold leading-none tracking-tight">
-            Not Just<br />A Stay
-          </Link>
-          <a href="#collection" className="bg-[#141414] px-5 py-3 text-[12px] font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#A1834C]">
-            Villas
-          </a>
-        </div>
-      </header>
-
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-12 md:px-10 md:py-20">
-        <div className="md:col-span-7">
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-20 pt-32 md:grid-cols-12 md:px-10 md:pb-28 md:pt-40">
+        <Reveal className="md:col-span-7">
           <p className="mb-5 text-[12px] font-semibold uppercase text-[#A1834C]">Hosted private villas</p>
           <h1 className="max-w-4xl text-5xl font-medium leading-[1.02] tracking-tight md:text-7xl">
             Find the North Goa stay your group can settle into.
           </h1>
-        </div>
-        <div className="space-y-6 md:col-span-4 md:col-start-9 md:pt-14">
+        </Reveal>
+        <Reveal delay={150} className="space-y-6 md:col-span-4 md:col-start-9 md:pt-14">
           <p className="text-lg leading-8 text-[#6f6f6f]">
             Browse a compact collection of private villas with hosted arrival, pools, flexible stays and curated local experiences.
           </p>
@@ -75,7 +60,7 @@ export default async function PropertiesPage({
               <p className="mt-1 text-[#8b8b8b]">Host care</p>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="border-y border-black/10 bg-white px-5 py-4 md:px-10">
@@ -95,8 +80,8 @@ export default async function PropertiesPage({
         </div>
       </section>
 
-      <section id="collection" className="mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-16">
-        <div className="mb-8 grid gap-5 md:grid-cols-12 md:items-end">
+      <section id="collection" className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
+        <Reveal className="mb-12 grid gap-5 md:grid-cols-12 md:items-end">
           <div className="md:col-span-6">
             <p className="text-[12px] font-semibold uppercase text-[#A1834C]">Collection</p>
             <h2 className="mt-2 text-3xl font-medium tracking-tight md:text-5xl">
@@ -106,7 +91,7 @@ export default async function PropertiesPage({
           <p className="text-sm leading-7 text-[#6f6f6f] md:col-span-4 md:col-start-9">
             Each listing keeps the practical details close to the image: location, nightly rate, guest capacity and the fastest path to enquire.
           </p>
-        </div>
+        </Reveal>
 
         {properties.length > 0 ? (
           <div className="grid gap-8 md:grid-cols-3">

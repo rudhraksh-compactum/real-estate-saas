@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import {
-  ArrowLeft,
   Bath,
   Bed,
   CalendarDays,
@@ -23,6 +21,7 @@ import { PropertyGallery } from '@/components/PropertyGallery';
 import InquiryForm from '@/components/InquiryForm';
 import { getStableImageUrl } from '@/lib/media';
 import type { Property } from '@/types';
+import { Reveal } from '@/components/Reveal';
 
 interface PropertyPageProps {
   params: Promise<{
@@ -148,23 +147,8 @@ export default async function PropertyPage({
 
   return (
     <main className="min-h-screen bg-[#F8F8F8] text-[#141414]">
-      <header className="border-b border-black/10 bg-[#F8F8F8]/90 px-5 py-5 backdrop-blur-md md:px-10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-          <Link href="/properties" className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase text-[#6f6f6f] transition-colors hover:text-[#141414]">
-            <ArrowLeft className="h-4 w-4" />
-            Villas
-          </Link>
-          <Link href="/" className="text-center text-2xl font-semibold leading-none tracking-tight">
-            Not Just<br />A Stay
-          </Link>
-          <a href="#request" className="bg-[#141414] px-5 py-3 text-[12px] font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#A1834C]">
-            Request
-          </a>
-        </div>
-      </header>
-
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-8 md:grid-cols-12 md:px-10 md:py-12">
-        <div className="flex flex-col justify-between md:col-span-5">
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-32 md:grid-cols-12 md:px-10 md:pb-24 md:pt-40">
+        <Reveal className="flex flex-col justify-between md:col-span-5">
           <div>
             <p className="mb-5 text-[12px] font-semibold uppercase text-[#A1834C]">Private villa in North Goa</p>
             <h1 className="max-w-xl text-5xl font-medium leading-[0.98] tracking-tight md:text-7xl">
@@ -193,17 +177,17 @@ export default async function PropertyPage({
               />
             )}
           </div>
-        </div>
+        </Reveal>
 
-        <div className="md:col-span-7">
+        <Reveal delay={160} className="md:col-span-7">
           <div className="grid gap-3 md:grid-cols-[1fr_0.42fr]">
-            <div className="group relative aspect-[4/3] overflow-hidden bg-neutral-200 md:aspect-[1.15/1]">
+            <div className="goodwood-image group relative aspect-[4/3] bg-neutral-200 md:aspect-[1.08/1]">
               <Image
                 src={heroImage.url}
                 alt={heroImage.alt || property.title}
                 fill
                 priority
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover"
                 sizes="(max-width: 768px) 100vw, 58vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -213,7 +197,7 @@ export default async function PropertyPage({
               </div>
             </div>
             <div className="hidden gap-3 md:grid">
-              <div className="relative overflow-hidden bg-neutral-200">
+              <div className="goodwood-image relative bg-neutral-200">
                 <Image
                   src={secondaryImage.url}
                   alt={secondaryImage.alt || property.title}
@@ -228,12 +212,12 @@ export default async function PropertyPage({
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 pb-12 md:grid-cols-12 md:px-10">
+      <section className="mx-auto grid max-w-7xl gap-12 px-5 pb-24 md:grid-cols-12 md:px-10 md:pb-36">
         <div className="space-y-10 md:col-span-7">
-          <section className="border-t border-black/10 pt-8">
+          <Reveal as="section" className="border-t border-black/10 pt-10">
             <div className="grid gap-6 md:grid-cols-12">
               <h2 className="text-3xl font-medium tracking-tight md:col-span-5 md:text-5xl">
                 Designed for slow mornings and hosted evenings.
@@ -245,10 +229,10 @@ export default async function PropertyPage({
                 </p>
               </div>
             </div>
-          </section>
+          </Reveal>
 
           {property.amenities && property.amenities.length > 0 && (
-            <section className="border-t border-black/10 pt-8">
+            <Reveal as="section" className="border-t border-black/10 pt-10">
               <div className="mb-6 flex items-end justify-between gap-5">
                 <div>
                   <p className="text-[12px] font-semibold uppercase text-[#A1834C]">Amenities</p>
@@ -261,10 +245,10 @@ export default async function PropertyPage({
                   <Amenity key={amenity} amenity={amenity} />
                 ))}
               </div>
-            </section>
+            </Reveal>
           )}
 
-          <section className="grid gap-4 border-t border-black/10 pt-8 md:grid-cols-3">
+          <Reveal as="section" className="grid gap-4 border-t border-black/10 pt-10 md:grid-cols-3">
             <div className="bg-white p-6">
               <p className="text-[12px] font-semibold uppercase text-[#8b8b8b]">Hosted stay</p>
               <p className="mt-4 text-3xl font-medium">24 hr</p>
@@ -280,15 +264,15 @@ export default async function PropertyPage({
               <p className="mt-4 text-3xl font-medium">{property.locality || property.address?.city}</p>
               <p className="mt-2 text-sm leading-6 text-[#6f6f6f]">A calm North Goa base close to beaches, markets and village lanes.</p>
             </div>
-          </section>
+          </Reveal>
 
-          <section id="gallery" className="border-t border-black/10 pt-8">
+          <Reveal as="section" id="gallery" className="border-t border-black/10 pt-10">
             <div className="mb-6">
               <p className="text-[12px] font-semibold uppercase text-[#A1834C]">Gallery</p>
               <h2 className="mt-2 text-3xl font-medium tracking-tight">A closer look</h2>
             </div>
             <PropertyGallery images={images} title={property.title} />
-          </section>
+          </Reveal>
         </div>
 
         <aside id="request" className="md:col-span-5 lg:col-span-4 lg:col-start-9">
