@@ -179,7 +179,10 @@ export default async function HomePage() {
           <Reveal className="mb-14 grid gap-8 border-b border-black/10 pb-8 md:grid-cols-12 md:items-end">
             <div>
               <p className="estate-kicker mb-3">What&apos;s on</p>
-              <h2 className="max-w-4xl text-4xl font-medium leading-[1.1] tracking-tight md:text-6xl">Guiding you toward the residence of your dreams</h2>
+              <h2 className="max-w-4xl text-[2rem] font-medium leading-[1.08] tracking-tight sm:text-5xl md:text-6xl">
+                <span className="md:hidden">Residences for slow, memorable stays</span>
+                <span className="hidden md:inline">Guiding you toward the residence of your dreams</span>
+              </h2>
             </div>
             <p className="text-sm leading-7 text-[#6f6f6f] md:col-span-4 md:col-start-9">
               Our vision bridges balance, design and attention so every guest resides in a space reflecting their values.
